@@ -1,0 +1,164 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# Editor Files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+.project
+.settings/
+
+# Logs and Databases
+*.log
+*.sqlite
+*.db
+*.sql
+
+# Recon Output Directories
+recon_*
+output_*
+results_*
+scan_*
+
+# State and Temporary Files
+.recon_state/
+*.tmp
+*.temp
+.cache/
+tmp/
+
+# Tool-Specific Outputs
+js_file/
+js_files/
+downloaded_js/
+filtered-urls/
+screenshots/
+*.screenshot
+
+# Downloaded Files
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Wordlists (don't commit large files)
+*.txt.bak
+wordlists/
+resolvers/
+*-wordlist.txt
+*-resolvers.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Sensitive Data
+*secret*
+*password*
+*api-key*
+*apikey*
+*token*
+.env
+.env.local
+*.pem
+*.key
+*.crt
+credentials.txt
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*~
+
+# Archives
+state_archive_*
+
+# Local Tool Development
+local-tool/
+Local-Tool/
+
+# Documentation Builds
+docs/_build/
+site/
+
+# Package Manager
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.idea
+.vscode
+*.iml
+*.ipr
+*.iws
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+
+# Linux
+.directory
+
+# Windows
+desktop.ini
+
+# Nmap
+*.gnmap
+*.xml
+
+# Miscellaneous
+*.orig
+.vagrant/
+Vagrantfile.local
