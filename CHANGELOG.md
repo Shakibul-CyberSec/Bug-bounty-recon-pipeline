@@ -61,7 +61,7 @@ This is the first public release of the Bug Bounty Recon Pipeline - a comprehens
 - Parallel file downloading (20 concurrent)
 
 ##### Phase 5.5: API Discovery
-- **Tools**: gf, qsreplace
+- **Tools**: httpx
 - API endpoint pattern matching
 - GraphQL endpoint detection
 - Swagger/OpenAPI documentation discovery
