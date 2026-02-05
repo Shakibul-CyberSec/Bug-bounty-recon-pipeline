@@ -5,7 +5,7 @@
 Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases covering subdomain enumeration to vulnerability assessment. Built for reliability, scalability, and actionable intelligence gathering.
 
 ![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial-red.svg)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation/releases)
 [![Bash](https://img.shields.io/badge/bash-5.0%2B-green.svg)](https://www.gnu.org/software/bash/)
 [![Tools](https://img.shields.io/badge/tools-34%2B-brightgreen.svg)](#complete-tool-inventory)
 
@@ -518,6 +518,6 @@ If this project helped you in your bug bounty journey or security research, plea
 
 *Built with care for the bug bounty and infosec community*
 
-[Report Issues](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues) • [Request Features](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues/new) • [View Documentation](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline)
+[Report Issues](https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation/issues) • [Request Features](https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation/issues/new) • [View Documentation](https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation)
 
 </div>
