@@ -7,14 +7,14 @@ Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/releases)
 [![Bash](https://img.shields.io/badge/bash-5.0%2B-green.svg)](https://www.gnu.org/software/bash/)
-[![Tools](https://img.shields.io/badge/tools-35%2B-brightgreen.svg)](#complete-tool-inventory)
+[![Tools](https://img.shields.io/badge/tools-34%2B-brightgreen.svg)](#complete-tool-inventory)
 
 ---
 
 ## Key Features
 
 - **17-Phase Pipeline Architecture**: From subdomain discovery to vulnerability assessment
-- **35+ Security Tools**: Industry-standard tools working in concert
+- **34+ Security Tools**: Industry-standard tools working in concert
 - **Resume Capability**: Intelligent checkpoint system for interrupted scans
 - **Parallel Processing**: Configurable concurrency for optimal performance
 - **Smart Rate Limiting**: Exponential backoff prevents API throttling
@@ -55,12 +55,12 @@ sudo ./install.sh
 ### What Gets Installed
 
 The automated installer will:
-- Install all 35 required security tools
+- Install all 34 required security tools
 - Configure Go environment and install Go-based tools
 - Set up default wordlists (5000 subdomains)
-- Configure DNS resolvers
+- Configure DNS resolvers & fingerprint.js(subdomain takeover)
 - Download Nuclei templates
-- Configure Tor proxy (optional)
+- Configure Tor proxy 
 - Install custom local tools (jsscan, down, url-extension)
 
 **Installation Time**: ~10-15 minutes depending on internet speed
@@ -98,7 +98,6 @@ demo.com
 ### Interactive Prompts
 
 During execution, the pipeline will prompt for:
-- **Scan Mode**: Root domain/Full reconnaissance
 - **Tor Usage**: Enable/disable Tor anonymization
 - **Port Scan Strategy**: Smart scan, full scan, quick scan, or skip
 - **Nuclei Scan**: Run comprehensive vulnerability scan or skip
@@ -109,25 +108,25 @@ During execution, the pipeline will prompt for:
 
 ### 17-Phase Reconnaissance Workflow
 
-| Phase | Name | Tools | Output Files |
-|-------|------|-------|--------------|
-| **1** | **Subdomain Enumeration** | subfinder, assetfinder, crt.sh, amass, puredns, dnsx, dnsgen 
-| **2** | **Port Scanning** | naabu, nmap, dig 
-| **3** | **HTTP Probing** | httpx 
-| **4** | **URL Collection** | gau, katana, url-extension
-| **5** | **JavaScript Analysis** | down, jsscan, httpx 
-| **5.5** | **API Discovery** | gf, qsreplace 
-| **5.6** | **Cloud Asset Discovery** | cloud_enum 
-| **5.7** | **WAF Detection** | wafw00f 
-| **6** | **Nuclei Vulnerability Scan** | nuclei 
-| **7** | **Vulnerability Pattern Matching** | gf 
-| **8** | **DNS Reconnaissance** | dig, dnsrecon, whois 
-| **9** | **Visual Screenshots** | gowitness | `gowitness_screenshots/*.png` |
-| **10** | **Technology Fingerprinting** | curl, jq, custom fingerprints | `technology/tech_stack.json`, `technology/tech_summary.txt` |
-| **11** | **Parameter Discovery** | grep, awk (custom) | `parameters/unique_params.txt`, `parameters/cat_redirect.txt`, `parameters/cat_file_path.txt`, `parameters/cat_idor.txt`, `parameters/cat_injection.txt`, `parameters/param_urls.txt` |
-| **12** | **Parameter Fuzzing** | arjun | `param_fuzzing/arjun_params.txt`, `parameters/all_params_merged.txt` |
-| **13** | **CORS Testing** | curl (custom) | `cors_testing/cors_results.txt` |
-| **14** | **Quick Security Checks** | subjack, curl | `subdomain_takeover.txt`, `s3_buckets.txt`, `git_exposed.txt` |
+| Phase | Name | Tools | Output |
+|-------|------|-------|--------|
+| **1** | **Subdomain Enumeration** | subfinder, assetfinder, crt.sh, amass, puredns, dnsx, dnsgen | Subdomain lists and DNS resolution |
+| **2** | **Port Scanning** | naabu, nmap, dig | Port analysis, CDN detection, service fingerprinting |
+| **3** | **HTTP Probing** | httpx | Live host identification (HTTP/HTTPS) |
+| **4** | **URL Collection** | gau, katana, url-extension | Archive URLs, crawled URLs, filtered by extension |
+| **5** | **JavaScript Analysis** | down, jsscan, httpx | JS files, secrets, endpoints, source maps |
+| **5.5** | **API Discovery** | gf, qsreplace | API endpoints and GraphQL/Swagger detection |
+| **5.6** | **Cloud Asset Discovery** | CT logs, pattern matching | S3, Azure, GCS resources |
+| **5.7** | **WAF Detection** | wafw00f | Web Application Firewall identification |
+| **6** | **Nuclei Vulnerability Scan** | nuclei | Vulnerability findings by severity |
+| **7** | **Vulnerability Pattern Matching** | gf | SQLi, XSS, SSRF, LFI, RCE patterns |
+| **8** | **DNS Reconnaissance** | dig, dnsrecon, whois, subjack | DNS records, WHOIS data, subdomain takeover |
+| **9** | **Visual Screenshots** | gowitness | Website screenshots |
+| **10** | **Technology Fingerprinting** | curl, jq | Tech stack, CMS, frameworks, web servers |
+| **11** | **Parameter Discovery** | grep, awk | Parameter extraction and categorization |
+| **12** | **Parameter Fuzzing** | arjun | Discovered parameters via fuzzing |
+| **13** | **CORS Testing** | curl | CORS misconfiguration detection |
+| **14** | **Quick Security Checks** | httpx, curl | open redirects, Git exposure |
 
 ---
 
@@ -138,106 +137,44 @@ recon_v5_YYYYMMDD_HHMMSS/
   |
   +-- target.com/
        |
-       +-- all_subdomains.txt              # All discovered subdomains
-       +-- alive_subdomains.txt            # Live subdomains
-       +-- alive_subdomains_http.txt       # HTTP endpoints
-       +-- alive_subdomains_https.txt      # HTTPS endpoints
-       +-- all_urls.txt                    # All collected URLs
+       +-- portscan/
        |
-       +-- portscan/                       # Phase 2: Port scanning
-       |    +-- ip_analysis.txt            # CDN vs Origin IP classification
-       |    +-- cdn_hosts.txt              # Hosts behind CDN
-       |    +-- likely_origin_hosts.txt    # Direct origin IPs
-       |    +-- naabu_results.txt          # All open ports
-       |    +-- nmap_scan.nmap             # Service detection results
-       |    +-- cdn_summary.txt            # Port scan strategy summary
+       +-- urls/
        |
-       +-- urls/                           # Phase 4: URL collection
-       |    +-- gau.txt                    # Archive URLs
-       |    +-- katana.txt                 # Crawled URLs
+       +-- filtered-url-extention/
        |
-       +-- filtered-url-extention/         # URLs filtered by extension
-       |    +-- php.txt
-       |    +-- asp.txt
-       |    +-- jsp.txt
-       |    +-- ... (other extensions)
+       +-- javascript/
+       |    +-- js_files/
+       |         +-- success/
        |
-       +-- javascript/                     # Phase 5: JS analysis
-       |    +-- js_urls.txt                # All JS files found
-       |    +-- filtered_js_urls.txt       # Interesting JS files
-       |    +-- high_priority_js.txt       # High-value targets
-       |    +-- secrets.txt                # Potential secrets/keys
-       |    +-- endpoints.txt              # API endpoints from JS
-       |    +-- source_maps.txt            # Source map files
-       |    +-- js_files/                  # Downloaded JS files
-       |    +-- summary.txt                # Analysis summary
+       +-- api_discovery/
        |
-       +-- api_discovery/                  # Phase 5.5: API endpoints
-       |    +-- api_endpoints.txt
+       +-- cloud_assets/
        |
-       +-- cloud_assets/                   # Phase 5.6: Cloud resources
-       |    +-- cloud_resources.txt
+       +-- waf_detection/
        |
-       +-- waf_detection/                  # Phase 5.7: WAF info
-       |    +-- waf_results.txt
+       +-- nuclei_scan/
        |
-       +-- nuclei_scan/                    # Phase 6: Nuclei results
-       |    +-- nuclei_results.txt
+       +-- vulnerability_scan/
        |
-       +-- vulnerability_scan/             # Phase 7: Pattern matching
-       |    +-- sqli.txt
-       |    +-- xss.txt
-       |    +-- ssrf.txt
-       |    +-- lfi.txt
-       |    +-- redirect.txt
-       |    +-- rce.txt
-       |
-       +-- network/                        # Phase 8: DNS recon
-       |    +-- dns_records.txt
-       |    +-- whois_info.txt
-       |    +-- subdomains/
+       +-- network/
+       |    +-- subdomains_dnsrecon/
        |    +-- subdomain_dig/
-       |    +-- subdomain_whois/
+       |    
        |
-       +-- gowitness_screenshots/          # Phase 9: Screenshots
-       |    +-- *.png
+       +-- gowitness_screenshots/
        |
-       +-- technology/                     # Phase 10: Tech detection
-       |    +-- tech_stack.json
-       |    +-- tech_summary.txt
+       +-- technology/
        |
-       +-- parameters/                     # Phase 11: Parameters
-       |    +-- unique_params.txt          # All unique parameters
-       |    +-- url_params.txt             # From URLs
-       |    +-- js_params.txt              # From JavaScript
-       |    +-- cat_redirect.txt           # Redirect parameters
-       |    +-- cat_file_path.txt          # File/path parameters
-       |    +-- cat_idor.txt               # IDOR parameters
-       |    +-- cat_injection.txt          # Injection-prone params
-       |    +-- cat_api_debug.txt          # API/debug parameters
-       |    +-- param_urls.txt             # Test URLs with params
+       +-- parameters/
        |
-       +-- param_fuzzing/                  # Phase 12: Fuzzing
-       |    +-- arjun_params.txt
-       |    +-- all_params_merged.txt
+       +-- param_fuzzing/
        |
-       +-- cors_testing/                   # Phase 13: CORS
-       |    +-- cors_results.txt
+       +-- cors_testing/
        |
-       +-- reports/                        # Final reports
-       |    +-- final_report.html
+       +-- reports/
        |
-       +-- .recon_state/                   # Resume capability
-       |    +-- checkpoint.txt
-       |    +-- progress.log
-       |
-       +-- subdomain_takeover.txt          # Phase 14: Quick checks
-       +-- s3_buckets.txt
-       +-- git_exposed.txt
-       +-- errors.log                      # Error tracking
-       +-- recon.log                       # Detailed execution log
-
-  +-- recon.log                            # Main log file
+       +-- .recon_state/
 ```
 
 ---
@@ -316,18 +253,17 @@ DEFAULT_FINGERPRINT="$DEFAULT_RESOURCE_DIR/fingerprint.json"
 - `whois` - Domain WHOIS lookup
 - `subjack` - Subdomain takeover checker
 
-### Vulnerability & Security (4)
+### Vulnerability & Security (3)
 - `nuclei` - Vulnerability scanner
 - `arjun` - HTTP parameter discovery
 - `wafw00f` - WAF detection
-- `cloud_enum` - Cloud asset discovery
 
 ### Custom Local Tools (3)
 - `jsscan` - JavaScript secret scanner
 - `down` - Parallel file downloader
 - `url-extension` - URL extension filter
 
-**Total: 35 Tools**
+**Total: 34 Tools**
 
 ---
 
@@ -349,7 +285,7 @@ DEFAULT_FINGERPRINT="$DEFAULT_RESOURCE_DIR/fingerprint.json"
 
 ### Privacy & Anonymity
 - Optional Tor integration
-- Proxy support (HTTP/SOCKS)
+- Proxy support
 - Configurable user agents
 - Rate limiting to avoid detection
 
@@ -363,7 +299,7 @@ DEFAULT_FINGERPRINT="$DEFAULT_RESOURCE_DIR/fingerprint.json"
 ```bash
 # Issue: Command not found after installation
 # Solution: Reload shell environment
-source ~/.bashrc
+source ~/.bashrc or source ~/.zshrc
 # or restart terminal
 ```
 
@@ -387,14 +323,14 @@ MAX_CONCURRENT_JOBS=3  # Reduce from 5 to 3
 # Issue: Go-based tools not found
 # Solution: Add Go bin to PATH
 export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
-echo 'export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin' >> ~/.bashrc
+echo 'export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin' >> ~/.bashrc or ~/.zshrc
 ```
 
 #### Nuclei Templates Missing
 ```bash
 # Issue: Nuclei templates not found
 # Solution: Update templates manually
-nuclei -update-templates
+nuclei -ut
 ```
 
 #### Tor Connection Failed
@@ -486,7 +422,7 @@ See [LICENSE](LICENSE) file for full details.
 - **ChatGPT (OpenAI)** - Documentation and testing assistance
 
 ### Open Source Community
-Special thanks to the developers and maintainers of all 35 security tools integrated into this pipeline. Your tools make this project possible.
+Special thanks to the developers and maintainers of all 34 security tools integrated into this pipeline. Your tools make this project possible.
 
 ### Security Research Community
 Thanks to the bug bounty hunters, penetration testers, and security researchers who continuously push the boundaries of web security.
