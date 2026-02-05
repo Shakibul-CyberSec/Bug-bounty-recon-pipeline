@@ -40,7 +40,6 @@ If a scan is interrupted, resume it:
 ## Advanced Configurations
 
 ### Custom Wordlist
-Edit `recon.sh` and modify:
 ```bash
 wordlist="/path/to/custom/wordlist.txt"
 ```
@@ -54,30 +53,6 @@ resolvers="/path/to/custom/resolvers.txt"
 ```bash
 MAX_CONCURRENT_JOBS=10  # Increase parallel jobs
 HTTPX_THREADS=200       # Increase HTTP probe threads
-```
-
-## Output Examples
-
-### Directory Structure
-```
-recon_v5_20260205_143022/
-└── example.com/
-    ├── subdomains/
-    │   ├── all_subdomains.txt      # All discovered subdomains
-    │   ├── live_subdomains.txt     # Active subdomains
-    │   └── resolved_subdomains.txt # DNS resolved
-    ├── ports/
-    │   ├── open_ports.txt          # Open ports
-    │   └── nmap_scan.txt           # Nmap results
-    ├── http/
-    │   ├── live_urls.txt           # Active URLs
-    │   └── http_responses.txt      # HTTP headers
-    ├── vulnerabilities/
-    │   ├── nuclei_results.txt      # Nuclei findings
-    │   └── custom_checks.txt       # Manual checks
-    ├── screenshots/
-    │   └── *.png                   # Page screenshots
-    └── report.html                 # Final report
 ```
 
 ### Sample Workflow
@@ -122,7 +97,7 @@ admin.example.com:443
 ./recon.sh bugcrowd-target.com --verbose
 
 # Review findings in output directory
-cd recon_v5_*/bugcrowd-target.com/vulnerabilities/
+cd recon*/bugcrowd-target.com/vulnerabilities/
 ```
 
 ### Penetration Testing
@@ -146,26 +121,10 @@ EOF
 cat recon_v5_*/webapp.internal.company.com/vulnerabilities/*
 ```
 
-## Integration Examples
-
-### With Other Tools
-
-#### Feed to Burp Suite
-```bash
-# Extract all URLs
-cat recon_v5_*/target.com/http/live_urls.txt | burp-import
-```
-
-#### Feed to Metasploit
-```bash
-# Extract open ports
-cat recon_v5_*/target.com/ports/open_ports.txt | msf-import
-```
-
 #### Custom Post-Processing
 ```bash
 # Extract high-severity findings
-grep -i "critical\|high" recon_v5_*/target.com/vulnerabilities/nuclei_results.txt
+grep -i "critical\|high" recon*/target.com/vulnerabilities/nuclei_results.txt
 ```
 
 ## Troubleshooting Common Scenarios
@@ -174,8 +133,6 @@ grep -i "critical\|high" recon_v5_*/target.com/vulnerabilities/nuclei_results.tx
 ```bash
 # Use custom wordlist with more entries
 wget https://github.com/danielmiessler/SecLists/raw/master/Discovery/DNS/subdomains-top1million-110000.txt
-
-# Edit script to use this wordlist
 ```
 
 ### Slow Scanning
@@ -253,16 +210,6 @@ EOF
 
 # Comprehensive scan across 3 domains
 # Total time: ~4 hours
-```
-
-### Example 3: Wildcard Domain
-```bash
-./recon.sh *.example.com --verbose
-
-# Discovers:
-# - Subdomain permutations
-# - Cloud storage buckets
-# - Development environments
 ```
 
 ---
