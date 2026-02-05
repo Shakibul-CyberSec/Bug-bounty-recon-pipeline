@@ -177,4 +177,4 @@ A: Yes! Create a GitHub issue with the "enhancement" label describing your featu
 
 ---
 
-**Still have questions?** Open an issue on [GitHub](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues).
+**Still have questions?** Open an issue on [GitHub](https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation/issues).
