@@ -7,11 +7,11 @@ Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/releases)
 [![Bash](https://img.shields.io/badge/bash-5.0%2B-green.svg)](https://www.gnu.org/software/bash/)
-[![Tools](https://img.shields.io/badge/tools-35%2B-brightgreen.svg)](#-complete-tool-inventory)
+[![Tools](https://img.shields.io/badge/tools-35%2B-brightgreen.svg)](#complete-tool-inventory)
 
 ---
 
-## ðŸŽ¯ Key Features
+## Key Features
 
 - **17-Phase Pipeline Architecture**: From subdomain discovery to vulnerability assessment
 - **35+ Security Tools**: Industry-standard tools working in concert
@@ -24,7 +24,7 @@ Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases
 
 ---
 
-## ðŸ"‹ System Requirements
+## System Requirements
 
 | Component | Requirement |
 |-----------|-------------|
@@ -36,7 +36,7 @@ Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases
 
 ---
 
-## ðŸ› ï¸ Installation
+## Installation
 
 ### Quick Start
 
@@ -55,19 +55,19 @@ sudo ./install.sh
 ### What Gets Installed
 
 The automated installer will:
-- ✅ Install all 35 required security tools
-- ✅ Configure Go environment and install Go-based tools
-- ✅ Set up default wordlists (5000 subdomains)
-- ✅ Configure DNS resolvers
-- ✅ Download Nuclei templates
-- ✅ Configure Tor proxy (optional)
-- ✅ Install custom local tools (jsscan, down, url-extension)
+- Install all 35 required security tools
+- Configure Go environment and install Go-based tools
+- Set up default wordlists (5000 subdomains)
+- Configure DNS resolvers
+- Download Nuclei templates
+- Configure Tor proxy (optional)
+- Install custom local tools (jsscan, down, url-extension)
 
 **Installation Time**: ~10-15 minutes depending on internet speed
 
 ---
 
-## ðŸš€ Usage
+## Usage
 
 ### Basic Commands
 
@@ -104,7 +104,7 @@ During execution, the pipeline will prompt for:
 
 ---
 
-## ðŸ"Š Pipeline Architecture
+## Pipeline Architecture
 
 ### 17-Phase Reconnaissance Workflow
 
@@ -130,116 +130,118 @@ During execution, the pipeline will prompt for:
 
 ---
 
-## ðŸ"‚ Output Structure
+## Output Structure
 
 ```
 recon_v5_YYYYMMDD_HHMMSS/
-â"œâ"€â"€ target.com/
-â"‚   â"œâ"€â"€ all_subdomains.txt             # All discovered subdomains
-â"‚   â"œâ"€â"€ alive_subdomains.txt           # Live subdomains
-â"‚   â"œâ"€â"€ alive_subdomains_http.txt      # HTTP endpoints
-â"‚   â"œâ"€â"€ alive_subdomains_https.txt     # HTTPS endpoints
-â"‚   â"œâ"€â"€ all_urls.txt                   # All collected URLs
-â"‚   â"‚
-â"‚   â"œâ"€â"€ portscan/                      # Phase 2: Port scanning
-â"‚   â"‚   â"œâ"€â"€ ip_analysis.txt           # CDN vs Origin IP classification
-â"‚   â"‚   â"œâ"€â"€ cdn_hosts.txt             # Hosts behind CDN
-â"‚   â"‚   â"œâ"€â"€ likely_origin_hosts.txt   # Direct origin IPs
-â"‚   â"‚   â"œâ"€â"€ naabu_results.txt         # All open ports
-â"‚   â"‚   â"œâ"€â"€ nmap_scan.nmap            # Service detection results
-â"‚   â"‚   â""â"€â"€ cdn_summary.txt           # Port scan strategy summary
-â"‚   â"‚
-â"‚   â"œâ"€â"€ urls/                          # Phase 4: URL collection
-â"‚   â"‚   â"œâ"€â"€ gau.txt                   # Archive URLs
-â"‚   â"‚   â""â"€â"€ katana.txt                # Crawled URLs
-â"‚   â"‚
-â"‚   â"œâ"€â"€ filtered-url-extention/        # URLs filtered by extension
-â"‚   â"‚   â"œâ"€â"€ php.txt
-â"‚   â"‚   â"œâ"€â"€ asp.txt
-â"‚   â"‚   â"œâ"€â"€ jsp.txt
-â"‚   â"‚   â""â"€â"€ ...
-â"‚   â"‚
-â"‚   â"œâ"€â"€ javascript/                    # Phase 5: JS analysis
-â"‚   â"‚   â"œâ"€â"€ js_urls.txt               # All JS files found
-â"‚   â"‚   â"œâ"€â"€ filtered_js_urls.txt      # Interesting JS files
-â"‚   â"‚   â"œâ"€â"€ high_priority_js.txt      # High-value targets
-â"‚   â"‚   â"œâ"€â"€ secrets.txt               # Potential secrets/keys
-â"‚   â"‚   â"œâ"€â"€ endpoints.txt             # API endpoints from JS
-â"‚   â"‚   â"œâ"€â"€ source_maps.txt           # Source map files
-â"‚   â"‚   â"œâ"€â"€ js_files/                 # Downloaded JS files
-â"‚   â"‚   â""â"€â"€ summary.txt               # Analysis summary
-â"‚   â"‚
-â"‚   â"œâ"€â"€ api_discovery/                 # Phase 5.5: API endpoints
-â"‚   â"‚   â""â"€â"€ api_endpoints.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ cloud_assets/                  # Phase 5.6: Cloud resources
-â"‚   â"‚   â""â"€â"€ cloud_resources.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ waf_detection/                 # Phase 5.7: WAF info
-â"‚   â"‚   â""â"€â"€ waf_results.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ nuclei_scan/                   # Phase 6: Nuclei results
-â"‚   â"‚   â""â"€â"€ nuclei_results.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ vulnerability_scan/            # Phase 7: Pattern matching
-â"‚   â"‚   â"œâ"€â"€ sqli.txt
-â"‚   â"‚   â"œâ"€â"€ xss.txt
-â"‚   â"‚   â"œâ"€â"€ ssrf.txt
-â"‚   â"‚   â"œâ"€â"€ lfi.txt
-â"‚   â"‚   â"œâ"€â"€ redirect.txt
-â"‚   â"‚   â""â"€â"€ rce.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ network/                       # Phase 8: DNS recon
-â"‚   â"‚   â"œâ"€â"€ dns_records.txt
-â"‚   â"‚   â"œâ"€â"€ whois_info.txt
-â"‚   â"‚   â"œâ"€â"€ subdomains/
-â"‚   â"‚   â"œâ"€â"€ subdomain_dig/
-â"‚   â"‚   â""â"€â"€ subdomain_whois/
-â"‚   â"‚
-â"‚   â"œâ"€â"€ gowitness_screenshots/         # Phase 9: Screenshots
-â"‚   â"‚   â""â"€â"€ *.png
-â"‚   â"‚
-â"‚   â"œâ"€â"€ technology/                    # Phase 10: Tech detection
-â"‚   â"‚   â"œâ"€â"€ tech_stack.json
-â"‚   â"‚   â""â"€â"€ tech_summary.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ parameters/                    # Phase 11: Parameters
-â"‚   â"‚   â"œâ"€â"€ unique_params.txt         # All unique parameters
-â"‚   â"‚   â"œâ"€â"€ url_params.txt            # From URLs
-â"‚   â"‚   â"œâ"€â"€ js_params.txt             # From JavaScript
-â"‚   â"‚   â"œâ"€â"€ cat_redirect.txt          # Redirect parameters
-â"‚   â"‚   â"œâ"€â"€ cat_file_path.txt         # File/path parameters
-â"‚   â"‚   â"œâ"€â"€ cat_idor.txt              # IDOR parameters
-â"‚   â"‚   â"œâ"€â"€ cat_injection.txt         # Injection-prone params
-â"‚   â"‚   â"œâ"€â"€ cat_api_debug.txt         # API/debug parameters
-â"‚   â"‚   â""â"€â"€ param_urls.txt            # Test URLs with params
-â"‚   â"‚
-â"‚   â"œâ"€â"€ param_fuzzing/                 # Phase 12: Fuzzing
-â"‚   â"‚   â"œâ"€â"€ arjun_params.txt
-â"‚   â"‚   â""â"€â"€ all_params_merged.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ cors_testing/                  # Phase 13: CORS
-â"‚   â"‚   â""â"€â"€ cors_results.txt
-â"‚   â"‚
-â"‚   â"œâ"€â"€ reports/                       # Final reports
-â"‚   â"‚   â""â"€â"€ final_report.html
-â"‚   â"‚
-â"‚   â"œâ"€â"€ .recon_state/                  # Resume capability
-â"‚   â"‚   â"œâ"€â"€ checkpoint.txt
-â"‚   â"‚   â""â"€â"€ progress.log
-â"‚   â"‚
-â"‚   â"œâ"€â"€ subdomain_takeover.txt         # Phase 14: Quick checks
-â"‚   â"œâ"€â"€ s3_buckets.txt
-â"‚   â"œâ"€â"€ git_exposed.txt
-â"‚   â"œâ"€â"€ errors.log                     # Error tracking
-â"‚   â""â"€â"€ recon.log                      # Detailed execution log
-â"‚
-â""â"€â"€ recon.log                          # Main log file
+  |
+  +-- target.com/
+       |
+       +-- all_subdomains.txt              # All discovered subdomains
+       +-- alive_subdomains.txt            # Live subdomains
+       +-- alive_subdomains_http.txt       # HTTP endpoints
+       +-- alive_subdomains_https.txt      # HTTPS endpoints
+       +-- all_urls.txt                    # All collected URLs
+       |
+       +-- portscan/                       # Phase 2: Port scanning
+       |    +-- ip_analysis.txt            # CDN vs Origin IP classification
+       |    +-- cdn_hosts.txt              # Hosts behind CDN
+       |    +-- likely_origin_hosts.txt    # Direct origin IPs
+       |    +-- naabu_results.txt          # All open ports
+       |    +-- nmap_scan.nmap             # Service detection results
+       |    +-- cdn_summary.txt            # Port scan strategy summary
+       |
+       +-- urls/                           # Phase 4: URL collection
+       |    +-- gau.txt                    # Archive URLs
+       |    +-- katana.txt                 # Crawled URLs
+       |
+       +-- filtered-url-extention/         # URLs filtered by extension
+       |    +-- php.txt
+       |    +-- asp.txt
+       |    +-- jsp.txt
+       |    +-- ... (other extensions)
+       |
+       +-- javascript/                     # Phase 5: JS analysis
+       |    +-- js_urls.txt                # All JS files found
+       |    +-- filtered_js_urls.txt       # Interesting JS files
+       |    +-- high_priority_js.txt       # High-value targets
+       |    +-- secrets.txt                # Potential secrets/keys
+       |    +-- endpoints.txt              # API endpoints from JS
+       |    +-- source_maps.txt            # Source map files
+       |    +-- js_files/                  # Downloaded JS files
+       |    +-- summary.txt                # Analysis summary
+       |
+       +-- api_discovery/                  # Phase 5.5: API endpoints
+       |    +-- api_endpoints.txt
+       |
+       +-- cloud_assets/                   # Phase 5.6: Cloud resources
+       |    +-- cloud_resources.txt
+       |
+       +-- waf_detection/                  # Phase 5.7: WAF info
+       |    +-- waf_results.txt
+       |
+       +-- nuclei_scan/                    # Phase 6: Nuclei results
+       |    +-- nuclei_results.txt
+       |
+       +-- vulnerability_scan/             # Phase 7: Pattern matching
+       |    +-- sqli.txt
+       |    +-- xss.txt
+       |    +-- ssrf.txt
+       |    +-- lfi.txt
+       |    +-- redirect.txt
+       |    +-- rce.txt
+       |
+       +-- network/                        # Phase 8: DNS recon
+       |    +-- dns_records.txt
+       |    +-- whois_info.txt
+       |    +-- subdomains/
+       |    +-- subdomain_dig/
+       |    +-- subdomain_whois/
+       |
+       +-- gowitness_screenshots/          # Phase 9: Screenshots
+       |    +-- *.png
+       |
+       +-- technology/                     # Phase 10: Tech detection
+       |    +-- tech_stack.json
+       |    +-- tech_summary.txt
+       |
+       +-- parameters/                     # Phase 11: Parameters
+       |    +-- unique_params.txt          # All unique parameters
+       |    +-- url_params.txt             # From URLs
+       |    +-- js_params.txt              # From JavaScript
+       |    +-- cat_redirect.txt           # Redirect parameters
+       |    +-- cat_file_path.txt          # File/path parameters
+       |    +-- cat_idor.txt               # IDOR parameters
+       |    +-- cat_injection.txt          # Injection-prone params
+       |    +-- cat_api_debug.txt          # API/debug parameters
+       |    +-- param_urls.txt             # Test URLs with params
+       |
+       +-- param_fuzzing/                  # Phase 12: Fuzzing
+       |    +-- arjun_params.txt
+       |    +-- all_params_merged.txt
+       |
+       +-- cors_testing/                   # Phase 13: CORS
+       |    +-- cors_results.txt
+       |
+       +-- reports/                        # Final reports
+       |    +-- final_report.html
+       |
+       +-- .recon_state/                   # Resume capability
+       |    +-- checkpoint.txt
+       |    +-- progress.log
+       |
+       +-- subdomain_takeover.txt          # Phase 14: Quick checks
+       +-- s3_buckets.txt
+       +-- git_exposed.txt
+       +-- errors.log                      # Error tracking
+       +-- recon.log                       # Detailed execution log
+
+  +-- recon.log                            # Main log file
 ```
 
 ---
 
-## ðŸ"§ Configuration
+## Configuration
 
 ### Performance Tuning
 
@@ -275,7 +277,7 @@ DEFAULT_FINGERPRINT="$DEFAULT_RESOURCE_DIR/fingerprint.json"
 
 ---
 
-## ðŸ"¦ Complete Tool Inventory
+## Complete Tool Inventory
 
 ### System Essentials (7)
 - `python3` - Python runtime
@@ -328,31 +330,31 @@ DEFAULT_FINGERPRINT="$DEFAULT_RESOURCE_DIR/fingerprint.json"
 
 ---
 
-## ðŸ"' Security Features
+## Security Features
 
 ### Secure Coding Practices
-- ✅ No use of `eval` or code injection vectors
-- ✅ Proper variable quoting throughout
-- ✅ Input validation and sanitization
-- ✅ Secure temporary file handling
-- ✅ Safe file parsing (no `source` on user data)
+- No use of `eval` or code injection vectors
+- Proper variable quoting throughout
+- Input validation and sanitization
+- Secure temporary file handling
+- Safe file parsing (no `source` on user data)
 
 ### Operational Security
-- ✅ Centralized job control with timeout management
-- ✅ Exponential backoff rate limiting
-- ✅ Error isolation and logging
-- ✅ Graceful failure handling
-- ✅ Resource cleanup on exit
+- Centralized job control with timeout management
+- Exponential backoff rate limiting
+- Error isolation and logging
+- Graceful failure handling
+- Resource cleanup on exit
 
 ### Privacy & Anonymity
-- ✅ Optional Tor integration
-- ✅ Proxy support (HTTP/SOCKS)
-- ✅ Configurable user agents
-- ✅ Rate limiting to avoid detection
+- Optional Tor integration
+- Proxy support (HTTP/SOCKS)
+- Configurable user agents
+- Rate limiting to avoid detection
 
 ---
 
-## 🛠 Troubleshooting
+## Troubleshooting
 
 ### Common Issues & Solutions
 
@@ -415,7 +417,7 @@ rm -rf recon_v5_*/target.com/.recon_state
 
 ---
 
-## ðŸ¤ Contributing
+## Contributing
 
 Contributions are welcome! Here's how you can help:
 
@@ -454,28 +456,28 @@ Contributions are welcome! Here's how you can help:
 
 ### Contribution Guidelines
 
-- ✅ Test on Ubuntu 24.04 LTS
-- ✅ Ensure backward compatibility
-- ✅ Follow bash best practices
-- ✅ Update documentation
-- ✅ Add error handling
+- Test on Ubuntu 24.04 LTS
+- Ensure backward compatibility
+- Follow bash best practices
+- Update documentation
+- Add error handling
 
 ---
 
-## ðŸ" License
+## License
 
 This project is licensed under the **MIT License**.
 
 **Key Points:**
-- ✅ Free to use, modify, distribute
-- ✅ Include original license in copies
-- ✅ No warranty provided
+- Free to use, modify, distribute
+- Include original license in copies
+- No warranty provided
 
 See [LICENSE](LICENSE) file for full details.
 
 ---
 
-## ðŸ™ Acknowledgments
+## Acknowledgments
 
 ### Development Partners
 - **Claude (Anthropic)** - Code development, optimization, and architecture
@@ -490,7 +492,7 @@ Thanks to the bug bounty hunters, penetration testers, and security researchers 
 
 ---
 
-## ðŸ'¤ Author
+## Author
 
 **Shakibul**  
 Security Researcher & Developer
@@ -500,35 +502,35 @@ Security Researcher & Developer
 
 ---
 
-## â­ Show Your Support
+## Show Your Support
 
 If this project helped you in your bug bounty journey or security research, please consider:
 
-- ⭐ **Star this repository**
-- 🐦 **Share on Twitter**
-- ðŸ'¬ **Spread the word**
+- Star this repository
+- Share on Twitter
+- Spread the word
 
 ---
 
-## âš ï¸ Legal Disclaimer
+## Legal Disclaimer
 
 ### Important Notice
 
 **This tool is intended for AUTHORIZED SECURITY TESTING ONLY.**
 
 #### You Must:
-- ✅ Obtain explicit written permission before scanning any target
-- ✅ Stay within the scope of authorization
-- ✅ Comply with applicable laws and regulations
-- ✅ Respect target's terms of service and rate limits
-- ✅ Report findings responsibly
+- Obtain explicit written permission before scanning any target
+- Stay within the scope of authorization
+- Comply with applicable laws and regulations
+- Respect target's terms of service and rate limits
+- Report findings responsibly
 
 #### You Must Not:
-- ❌ Scan targets without proper authorization
-- ❌ Use for malicious purposes
-- ❌ Violate computer fraud laws
-- ❌ Cause denial of service
-- ❌ Access unauthorized systems
+- Scan targets without proper authorization
+- Use for malicious purposes
+- Violate computer fraud laws
+- Cause denial of service
+- Access unauthorized systems
 
 ### Liability
 
@@ -556,14 +558,14 @@ If this project helped you in your bug bounty journey or security research, plea
 
 ---
 
-## ðŸ"ž Support
+## Support
 
 ### Getting Help
 
-- 📖 **Read the documentation** thoroughly before asking questions
-- 🐛 **Bug reports**: Open an issue on GitHub
-- 💡 **Feature requests**: Open an issue with [Feature Request] tag
-- ðŸ'¬ **General discussion**: Use GitHub Discussions
+- Read the documentation thoroughly before asking questions
+- **Bug reports**: Open an issue on GitHub
+- **Feature requests**: Open an issue with [Feature Request] tag
+- **General discussion**: Use GitHub Discussions
 
 ### Response Time
 
@@ -575,10 +577,10 @@ If this project helped you in your bug bounty journey or security research, plea
 
 <div align="center">
 
-**Happy Hunting! ðŸš€**
+**Happy Hunting!**
 
-*Built with ❤️ for the bug bounty and infosec community*
+*Built with care for the bug bounty and infosec community*
 
-**[Report Issues](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues) • [Request Features](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues/new) • [View Documentation](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline)**
+[Report Issues](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues) • [Request Features](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues/new) • [View Documentation](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline)
 
 </div>
