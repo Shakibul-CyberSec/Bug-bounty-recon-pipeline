@@ -3,17 +3,17 @@
 ## General Questions
 
 ### Q: What is this tool for?
-A: This is a comprehensive reconnaissance automation tool for bug bounty hunters and penetration testers. It performs 14 phases of security assessment including subdomain enumeration, port scanning, vulnerability detection, and more.
+A: This is a comprehensive reconnaissance automation tool for bug bounty hunters and penetration testers. It performs 17 phases of security assessment including subdomain enumeration, port scanning, vulnerability detection, and more.
 
 ### Q: Is this tool free?
-A: Yes, completely free and open-source under the MIT license.
+A: Yes, completely free and open-source.
 
 ### Q: What makes this different from other recon tools?
 A: 
 - **Security-hardened**: Production-ready bash with proper error handling
 - **Resume capability**: Never lose progress on interrupted scans
-- **14 comprehensive phases**: Complete workflow from enumeration to exploitation
-- **50+ tools integrated**: Best-in-class security tools
+- **17 comprehensive phases**: Complete workflow from enumeration to exploitation
+- **30+ tools integrated**: Best-in-class security tools
 - **Performance optimized**: Parallel execution with smart rate limiting
 
 ## Installation
@@ -22,7 +22,7 @@ A:
 A: Ubuntu 20.04+ and Debian-based Linux distributions. Tested on Ubuntu 24.04.
 
 ### Q: How long does installation take?
-A: Approximately 20-30 minutes depending on your internet speed and system resources.
+A: Approximately 10-15 minutes depending on your internet speed and system resources.
 
 ### Q: Do I need root access?
 A: Yes, sudo/root access is required for installing system packages and tools.
@@ -34,7 +34,7 @@ A: Not officially supported. However, you can use WSL2 on Windows or a Linux VM 
 A: 
 1. Check the error message in the terminal
 2. Ensure you have internet connectivity
-3. Verify system requirements (2GB+ RAM, 10GB disk)
+3. Verify system requirements (4GB RAM, 10GB disk)
 4. Try installing failed tools manually
 5. Check [SETUP.md](SETUP.md) for troubleshooting
 
@@ -47,7 +47,7 @@ A: `./recon_v5.sh target.com`
 A: Yes, create a text file with one domain per line and run: `./recon_v5.sh targets.txt`
 
 ### Q: How long does a scan take?
-A: Depends on the target size. Small targets: 30-60 minutes. Large targets: 2-8 hours.
+A: Depends on the target size. Small targets: 30-60 minutes. Large targets: 2-9+ hours.
 
 ### Q: Can I pause and resume a scan?
 A: Yes! The checkpoint system automatically saves progress. If interrupted, run the script again and select the incomplete scan.
@@ -90,7 +90,7 @@ A: Tor allows anonymous reconnaissance by routing traffic through the Tor networ
 A: Yes, the tool includes WAF detection and CDN filtering to identify protected assets.
 
 ### Q: Can it find subdomain takeovers?
-A: Yes, Phase 14 includes subdomain takeover detection using subjack.
+A: Yes, Phase 8 includes subdomain takeover detection using subjack.
 
 ### Q: Does it take screenshots?
 A: Yes, Phase 9 uses gowitness to capture screenshots of live web applications.
@@ -109,20 +109,13 @@ A: Yes, reconnaissance generates significant network traffic. Use responsibly an
 ### Q: Will I get detected/blocked?
 A: Possible. Use Tor mode for anonymity, adjust rate limits, and respect target infrastructure.
 
-### Q: How do I report vulnerabilities found?
-A: Follow responsible disclosure:
-1. Report to the bug bounty program or security team
-2. Do not exploit vulnerabilities
-3. Do not share findings publicly before disclosure
-4. Follow program guidelines for severity and impact
-
 ## Troubleshooting
 
 ### Q: Tool X is not found after installation
 A: 
 1. Verify PATH: `echo $PATH`
-2. Check tool location: `which subfinder`
-3. Reload shell: `source ~/.bashrc`
+2. Check tool location: `which $tool`
+3. Reload shell: `source ~/.bashrc or source ~/.zshrc`
 4. Reinstall the tool manually
 
 ### Q: DNS resolution is failing
@@ -147,9 +140,6 @@ A:
 3. Free up space: `sudo apt clean`
 
 ## Advanced
-
-### Q: How do I add custom wordlists?
-A: Edit `recon_v5.sh` and change the `wordlist` variable to your custom path.
 
 ### Q: Can I skip certain phases?
 A: Yes, modify the script or manually run phases by commenting out unwanted sections.
