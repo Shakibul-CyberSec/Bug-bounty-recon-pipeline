@@ -2238,15 +2238,14 @@ phase_dns_recon() {
     log_msg "=== PHASE 8 START: DNS & Network Intelligence ==="
 
     # Create directories for subdomain scan results
-    mkdir -p "$output_dir/network/subdomains"
-    mkdir -p "$output_dir/network/subdomain_dig"
-    mkdir -p "$output_dir/network/subdomain_whois"
+    mkdir -p "$output_dir/network/subdomains_dnsrecon"
+    mkdir -p "$output_dir/network/subdomains_dig"
 
     # Parallel DNS reconnaissance for main domain
     local dns_commands=(
         "dnsrecon -d $domain -t std,axfr -c $output_dir/network/dnsrecon.csv 2>>$error_log; echo 'desc:\"DNSRecon (Main Domain)\"'"
 
-        "{ for t in A AAAA MX NS TXT CNAME SOA TRACE; do echo \"=== \$t ===\"&& dig $domain \$t +short; done; } > $output_dir/network/dig_any.txt 2>>$error_log; echo 'desc:\"DIG (Main Domain)\"'"
+        "{ for t in A AAAA MX NS TXT CNAME SOA TRACE; do echo \"=== \$t ===\"&& dig $domain \$t +short; done; } > $output_dir/network/dig.txt 2>>$error_log; echo 'desc:\"DIG (Main Domain)\"'"
 
         "whois $domain > $output_dir/network/whois.txt 2>>$error_log; echo 'desc:\"WHOIS (Main Domain)\"'"
     )
@@ -2260,7 +2259,7 @@ phase_dns_recon() {
 
         # 1. DNSRecon for all subdomains
         dns_commands+=(
-            "while read sub; do [ -z \"\$sub\" ] && continue; safe=\$(echo \$sub | tr -cd '[:alnum:]_-'); timeout 15 dnsrecon -d \$sub -t std,axfr  -c \"$output_dir/network/subdomains/\${safe}_std.csv\" 2>>$error_log; done < \"$subdomain_file\"; echo 'desc:\"DNSRecon (All Subdomains)\"'"
+            "while read sub; do [ -z \"\$sub\" ] && continue; safe=\$(echo \$sub | tr -cd '[:alnum:]_-'); timeout 15 dnsrecon -d \$sub -t std,axfr  -c \"$output_dir/network/subdomains_dnsrecon/\${safe}_std.csv\" 2>>$error_log; done < \"$subdomain_file\"; echo 'desc:\"DNSRecon (All Subdomains)\"'"
         )
 
         # 2. DIG for all subdomains
@@ -3600,7 +3599,7 @@ main() {
     # Create output directory
     local timestamp
     timestamp=$(date +%Y%m%d_%H%M%S)
-    local main_output_dir="recon_v5_${timestamp}"
+    local main_output_dir="recon_${timestamp}"
     mkdir -p "$main_output_dir"
 
     GLOBAL_LOG="$main_output_dir/recon.log"
