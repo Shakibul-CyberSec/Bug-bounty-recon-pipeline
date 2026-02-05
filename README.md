@@ -42,8 +42,8 @@ Ultra-fast, security-hardened reconnaissance pipeline with 17 specialized phases
 
 ```bash
 # Clone repository
-git clone https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline.git
-cd Bug-bounty-recon-pipeline
+git clone https://github.com/Shakibul-CyberSec/Bug-Bounty-Reconnaissance-Automation.git
+cd Bug-Bounty-Reconnaissance-Automation
 
 # Set permissions
 chmod +x install.sh recon.sh
