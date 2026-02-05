@@ -13,7 +13,7 @@ body:
     attributes:
       label: Version
       description: What version of the script are you running?
-      placeholder: "v5.1.0"
+      placeholder: "v1.0"
     validations:
       required: true
       
@@ -40,7 +40,7 @@ body:
       label: Steps to Reproduce
       description: How can we reproduce this issue?
       placeholder: |
-        1. Run './recon_v5.sh target.com'
+        1. Run './recon.sh target.com'
         2. Wait for Phase 3
         3. See error
     validations:
