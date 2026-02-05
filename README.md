@@ -363,8 +363,8 @@ Contributions are welcome! Here's how you can help:
 1. **Fork the Repository**
    ```bash
    # Fork on GitHub, then clone your fork
-   git clone https://github.com/YOUR_USERNAME/Bug-bounty-recon-pipeline.git
-   cd Bug-bounty-recon-pipeline
+   git clone https://github.com/YOUR_USERNAME/Bug-Bounty-Reconnaissance-Automation.git
+   cd Bug-Bounty-Reconnaissance-Automation
    ```
 
 2. **Create Feature Branch**
