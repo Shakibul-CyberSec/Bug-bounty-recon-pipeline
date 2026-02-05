@@ -26,13 +26,13 @@
 - [Troubleshooting](#-troubleshooting)
 - [Contributing](#-contributing)
 - [License](#-license)
-- [Author](#-author)
+- [Credits & Acknowledgments](#-credits--acknowledgments)
 
 ---
 
 ## 🎯 Overview
 
-The **Bug Bounty Recon Pipeline v5.1** is a comprehensive, automated reconnaissance framework designed for security researchers, bug bounty hunters, and penetration testers. It orchestrates 14 distinct reconnaissance phases, integrating over 50 industry-standard security tools into a streamlined, efficient workflow.
+The **Bug Bounty Recon Pipeline v5.1** is a comprehensive, automated reconnaissance framework designed for security researchers, bug bounty hunters, and penetration testers. It orchestrates **14 distinct reconnaissance phases**, integrating **40+ industry-standard security tools** into a streamlined, efficient workflow.
 
 ### Key Highlights
 
@@ -41,6 +41,7 @@ The **Bug Bounty Recon Pipeline v5.1** is a comprehensive, automated reconnaissa
 - **Resume Capability**: Checkpoint system allows seamless recovery from interruptions
 - **Performance Optimized**: Parallel execution with configurable concurrency and smart rate limiting
 - **Comprehensive Reporting**: Automated markdown reports with detailed findings
+- **One-Command Installation**: Fully automated tool installation via `install_v5.sh`
 
 ---
 
@@ -54,6 +55,7 @@ The **Bug Bounty Recon Pipeline v5.1** is a comprehensive, automated reconnaissa
 - ✅ Enhanced input sanitization and validation
 - ✅ Exponential backoff for API rate limiting
 - ✅ Proper error handling and cleanup
+- ✅ Secure checkpoint system with input validation
 
 ### ⚡ Performance Features
 
@@ -61,20 +63,21 @@ The **Bug Bounty Recon Pipeline v5.1** is a comprehensive, automated reconnaissa
 - **Smart Rate Limiting**: Exponential backoff to prevent API throttling
 - **Timeout Management**: Graceful handling of long-running operations
 - **Resource Optimization**: Memory and disk space monitoring
+- **Job Tracking**: Background process management with PID tracking
 
 ### 🎛️ Operational Features
 
-- **Multiple Scan Modes**: Quick, Full, and Stealth profiles
+- **Multiple Scan Modes**: Quick and Full scan profiles
 - **Flexible Configuration**: Custom wordlists, resolvers, and exclusions
 - **Resume from Checkpoint**: Never lose progress on interrupted scans
-- **Proxy Support**: HTTP/HTTPS proxy configuration
-- **Verbose Logging**: Detailed debugging information on demand
+- **Proxy Support**: Tor integration for anonymous reconnaissance
+- **Verbose Logging**: Detailed debugging information on demand (`--verbose` flag)
 
 ---
 
 ## 📦 Installation
 
-### Quick Install
+### Quick Install (Recommended)
 
 ```bash
 # Clone the repository
@@ -83,204 +86,26 @@ git clone https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline.git
 # Navigate to directory
 cd Bug-bounty-recon-pipeline
 
-# Run automated installation
+# Run automated installation (installs ALL 40+ tools)
 sudo bash install_v5.sh
 
 # Make script executable
 chmod +x recon_v5.sh
 ```
 
-### Manual Installation
+**Note**: The `install_v5.sh` script will:
+- Install all 40+ required tools automatically
+- Set up Go environment and PATH variables
+- Download default wordlists and DNS resolvers
+- Configure Tor proxy (optional)
+- Verify all installations
 
-<details>
-<summary>Click to expand manual installation steps</summary>
+### System Requirements
 
-#### 1. Install Required Tools
-
-The script requires the following tools. Install them manually or use the provided installation script.
-
-**Subdomain Enumeration:**
-```bash
-# Subfinder
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-
-# Amass
-go install -v github.com/owasp-amass/amass/v4/...@master
-
-# Assetfinder
-go install github.com/tomnomnom/assetfinder@latest
-
-# Findomain
-# Download from: https://github.com/Findomain/Findomain/releases
-
-# Chaos
-go install -v github.com/projectdiscovery/chaos-client/cmd/chaos@latest
-
-# GitHub Subdomains
-go install github.com/gwen001/github-subdomains@latest
-```
-
-**DNS Resolution:**
-```bash
-# ShuffleDNS
-go install -v github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
-
-# DNSGen
-pip3 install dnsgen
-
-# Alterx
-go install github.com/projectdiscovery/alterx/cmd/alterx@latest
-
-# Gotator
-go install github.com/Josue87/gotator@latest
-
-# PureDNS
-go install github.com/d3mondev/puredns/v2@latest
-
-# MassDNS
-git clone https://github.com/blechschmidt/massdns.git
-cd massdns && make && sudo make install
-
-# DNSX
-go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-```
-
-**Port Scanning:**
-```bash
-# Naabu
-go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
-
-# Nmap
-sudo apt-get install nmap
-```
-
-**HTTP Probing:**
-```bash
-# HTTPX
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-```
-
-**Web Crawling:**
-```bash
-# Waybackurls
-go install github.com/tomnomnom/waybackurls@latest
-
-# GAU
-go install github.com/lc/gau/v2/cmd/gau@latest
-
-# Gauplus
-go install github.com/bp0lr/gauplus@latest
-
-# Hakrawler
-go install github.com/hakluke/hakrawler@latest
-
-# Katana
-go install github.com/projectdiscovery/katana/cmd/katana@latest
-
-# Gospider
-go install github.com/jaeles-project/gospider@latest
-
-# xnLinkFinder
-python3 -m pip install xnLinkFinder
-```
-
-**URL Processing:**
-```bash
-# Unfurl
-go install github.com/tomnomnom/unfurl@latest
-
-# Anew
-go install github.com/tomnomnom/anew@latest
-
-# URO
-pip3 install uro
-```
-
-**Content Discovery:**
-```bash
-# Meg
-go install github.com/tomnomnom/meg@latest
-
-# Feroxbuster
-# Download from: https://github.com/epi052/feroxbuster/releases
-
-# Dirsearch
-git clone https://github.com/maurosoria/dirsearch.git
-```
-
-**Vulnerability Scanning:**
-```bash
-# Nuclei
-go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
-
-# SQLMap
-git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
-```
-
-**Parameter Discovery:**
-```bash
-# Arjun
-pip3 install arjun
-
-# x8
-cargo install x8
-
-# GF (Patterns)
-go install github.com/tomnomnom/gf@latest
-
-# Qsreplace
-go install github.com/tomnomnom/qsreplace@latest
-```
-
-**Fuzzing Tools:**
-```bash
-# Dalfox
-go install github.com/hahwul/dalfox/v2@latest
-
-# FFUF
-go install github.com/ffuf/ffuf/v2@latest
-
-# CRLFuzz
-go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
-
-# GXSS
-go install github.com/KathanP19/Gxss@latest
-```
-
-**Screenshots:**
-```bash
-# GoWitness
-go install github.com/sensepost/gowitness@latest
-```
-
-**Technology Detection:**
-```bash
-# Webanalyze
-go install github.com/rverton/webanalyze/cmd/webanalyze@latest
-```
-
-**Security Checks:**
-```bash
-# Subjs
-go install github.com/lc/subjs@latest
-
-# S3Scanner
-pip3 install s3scanner
-
-# TruffleHog
-pip3 install truffleHog
-```
-
-**Utilities:**
-```bash
-# JQ
-sudo apt-get install jq
-
-# Parallel
-sudo apt-get install parallel
-```
-
-</details>
+- **OS**: Ubuntu 20.04+, Debian 10+, Kali Linux 2020.1+
+- **RAM**: 8 GB minimum (16 GB recommended for full scans)
+- **Disk Space**: 5 GB for tools + 10-50 GB for scan results
+- **Internet**: Required for tool downloads and passive enumeration
 
 ---
 
@@ -295,7 +120,7 @@ sudo apt-get install parallel
 # Multiple domains from file
 ./recon_v5.sh targets.txt
 
-# Verbose mode
+# Verbose mode for debugging
 ./recon_v5.sh example.com --verbose
 ```
 
@@ -304,109 +129,216 @@ sudo apt-get install parallel
 When you run the script, you'll be prompted for:
 
 1. **Scan Type**
-   - Quick: Fast enumeration only
-   - Full: Complete reconnaissance (default)
-   - Stealth: Slower, more careful
+   - `quick`: Fast subdomain enumeration and basic port scan (~30 min)
+   - `full`: Complete reconnaissance with all phases (~2-4 hours)
 
 2. **Nuclei Scanning**
-   - Enable/disable vulnerability scanning with Nuclei
+   - Enable/disable vulnerability scanning with Nuclei templates
+   - Recommended: Enable for bug bounty, disable for quick recon
 
 3. **Custom Wordlists** (optional)
    - Provide path to custom subdomain wordlist
+   - Default: `/usr/share/default-recon-resources/subdomains-top1million-5000.txt`
 
 4. **Custom Resolvers** (optional)
    - Provide path to custom DNS resolvers file
+   - Default: `/usr/share/default-recon-resources/resolvers.txt`
 
 5. **Exclusion List** (optional)
    - Domains/subdomains to exclude from scanning
+   - Format: One domain per line
 
 ### Advanced Usage
 
 ```bash
 # Resume interrupted scan
 ./recon_v5.sh
-# (Script will detect incomplete scans and offer resume option)
+# (Script automatically detects incomplete scans and offers resume option)
 
-# With proxy
-# Configure interactively when prompted or export:
-export HTTP_PROXY="http://127.0.0.1:8080"
-export HTTPS_PROXY="http://127.0.0.1:8080"
+# Multiple targets with verbose logging
+./recon_v5.sh targets.txt --verbose
+
+# Quick scan without Nuclei (faster)
 ./recon_v5.sh example.com
+# Select "quick" when prompted, disable Nuclei
 ```
 
 ---
 
 ## 🔄 Reconnaissance Phases
 
+The pipeline executes 14 sequential phases, each building upon the previous:
+
 ### Phase 1: Subdomain Enumeration
-- **Passive Sources**: subfinder, amass, assetfinder, findomain, chaos, github-subdomains
-- **Active Bruteforce**: shuffledns with custom wordlists
-- **Permutation Generation**: dnsgen, alterx, gotator
-- **Output**: `subdomains/all_subdomains.txt`
+**Tools**: subfinder, assetfinder, amass (passive), puredns (DNS bruteforce)  
+**Techniques**:
+- Passive subdomain discovery from multiple sources
+- DNS bruteforce with custom wordlist
+- Subdomain permutation generation (dnsgen)
+- DNS resolution validation (dnsx)
 
-### Phase 2: DNS Resolution & Validation
-- **Tools**: dnsx, massdns, puredns
-- **Records**: A, AAAA, CNAME, NS, MX, PTR, SOA, TXT
-- **Output**: `dns/live_domains.txt`, `dns/dns_records.json`
+**Output**: `subdomains/all_subdomains.txt` (resolved and validated)
 
-### Phase 3: Port Scanning
-- **Fast Scan**: naabu (top 1000 ports)
-- **Detailed Scan**: nmap with service detection
-- **Output**: `ports/open_ports.txt`, `ports/nmap_detailed.xml`
+---
 
-### Phase 4: HTTP Probing
-- **Tool**: httpx
-- **Detection**: Title, tech stack, status codes, web servers, CDN
-- **Output**: `http/live_urls.txt`, `http/httpx.json`
+### Phase 2: Intelligent Port Scanning
+**Tools**: naabu, nmap  
+**Techniques**:
+- Fast initial port discovery (naabu)
+- Detailed service detection (nmap)
+- CDN/Cloud IP filtering (intelligent exclusion)
+- Top ports + custom port ranges
 
-### Phase 5: Web Crawling & URL Discovery
-- **Archive Sources**: waybackurls, gau, gauplus
-- **Active Crawlers**: hakrawler, katana, gospider
-- **JS Analysis**: xnLinkFinder for endpoint extraction
-- **Output**: `crawling/unique_urls.txt`, `crawling/urls_with_params.txt`
+**Output**: `ports/open_ports.txt`, `ports/nmap_detailed.{xml,nmap,gnmap}`
 
-### Phase 6: Content Discovery
-- **Tools**: meg, feroxbuster, dirsearch
-- **Output**: `content_discovery/discovered_paths.txt`
+---
 
-### Phase 7: Vulnerability Scanning
-- **Tool**: Nuclei (optional, can be disabled)
-- **Severity**: Critical, High, Medium
-- **Output**: `vulnerabilities/nuclei.json`, `vulnerabilities/nuclei_report.md`
+### Phase 3: Web Service Discovery
+**Tools**: httpx, gowitness  
+**Techniques**:
+- HTTP/HTTPS probing on all discovered hosts
+- Title extraction and technology detection
+- Web server fingerprinting
+- Status code analysis
+- CDN detection
 
-### Phase 8: Advanced DNS Reconnaissance
-- **Techniques**: Zone transfers, ANY records, mail servers, name servers
-- **Output**: `advanced_dns/zone_transfer.txt`
+**Output**: `http/live_urls.txt`, `http/httpx_results.txt`
 
-### Phase 9: Screenshots
-- **Tool**: GoWitness
-- **Output**: `screenshots/*.png`
+---
 
-### Phase 10: Technology Detection
-- **Tools**: webanalyze, httpx tech-detect
-- **Output**: `technology/technologies.txt`
+### Phase 4: URL Discovery
+**Tools**: gau, katana  
+**Techniques**:
+- Historical URL collection (Wayback Machine, AlienVault OTX)
+- Active web crawling and spidering
+- URL parameter extraction
+- Endpoint discovery
+- URL deduplication (uro)
+
+**Output**: `crawling/all_urls.txt`, `crawling/urls_params.txt`
+
+---
+
+### Phase 5: JavaScript File Analysis
+**Tools**: httpx (JS extraction), jsscan, gf patterns  
+**Techniques**:
+- JavaScript file discovery and download
+- Sensitive information extraction (API keys, tokens, endpoints)
+- Pattern matching for secrets (gf)
+- Endpoint extraction from JS files
+
+**Output**: `javascript/js_files/`, `javascript/secrets.txt`, `javascript/endpoints.txt`
+
+---
+
+### Phase 6: Nuclei Vulnerability Scanning
+**Tools**: nuclei (with latest templates)  
+**Techniques**:
+- Template-based vulnerability detection
+- CVE scanning
+- Misconfiguration detection
+- Exposure checks
+- Severity-based reporting (Critical, High, Medium)
+
+**Output**: `vulnerabilities/nuclei_results.txt`, `vulnerabilities/nuclei.json`
+
+**Note**: This phase is optional and can be disabled for faster scans.
+
+---
+
+### Phase 7: Vulnerability Pattern Matching
+**Tools**: gf (pattern matching), qsreplace  
+**Techniques**:
+- XSS pattern detection
+- SQL injection parameter identification
+- SSRF vulnerable endpoints
+- Open redirect candidates
+- LFI/RFI pattern matching
+
+**Output**: `patterns/xss.txt`, `patterns/sqli.txt`, `patterns/ssrf.txt`
+
+---
+
+### Phase 8: DNS & Network Intelligence
+**Tools**: dnsrecon, whois, dnsx  
+**Techniques**:
+- DNS record enumeration (A, AAAA, MX, NS, TXT, SOA)
+- Zone transfer attempts
+- WHOIS information gathering
+- Mail server discovery
+- Name server enumeration
+
+**Output**: `dns/dns_records.txt`, `dns/whois.txt`, `dns/mail_servers.txt`
+
+---
+
+### Phase 9: Screenshot Capture
+**Tools**: gowitness  
+**Techniques**:
+- Visual capture of all live web services
+- Automatic thumbnail generation
+- Report generation with screenshots
+
+**Output**: `screenshots/*.png`
+
+---
+
+### Phase 10: Technology Detection & Fingerprinting
+**Tools**: httpx (tech-detect), wafw00f  
+**Techniques**:
+- CMS detection (WordPress, Joomla, Drupal, etc.)
+- Framework identification
+- Server technology fingerprinting
+- WAF/Security solution detection
+
+**Output**: `technology/tech_stack.txt`, `technology/waf_detection.txt`
+
+---
 
 ### Phase 11: Parameter Discovery
-- **Tools**: arjun, x8
-- **Output**: `parameters/all_parameters.txt`
+**Tools**: arjun  
+**Techniques**:
+- HTTP parameter bruteforcing
+- Hidden parameter discovery
+- Method-based parameter testing (GET, POST)
+
+**Output**: `parameters/discovered_params.txt`
+
+---
 
 ### Phase 12: Enhanced Parameter Fuzzing
-- **XSS Testing**: dalfox, gxss
-- **SQLi Testing**: sqlmap (limited quick scan)
-- **CRLF Testing**: crlfuzz
-- **Pattern Matching**: gf patterns
-- **Output**: `fuzzing/xss_results.txt`, `fuzzing/sqli_candidates.txt`
+**Tools**: gf, qsreplace  
+**Techniques**:
+- Parameter value fuzzing
+- Reflection point identification
+- Input validation testing
+- Edge case discovery
 
-### Phase 13: CORS Testing
-- **Tool**: corstest / manual curl testing
-- **Output**: `cors/cors_results.txt`
+**Output**: `fuzzing/parameter_fuzzing.txt`
 
-### Phase 14: Quick Security Checks
-- **Subdomain Takeover**: subjs
-- **S3 Buckets**: s3scanner
-- **Git Exposure**: curl-based detection
-- **Secret Scanning**: trufflehog (if git repos found)
-- **Output**: `quick_checks/*`
+---
+
+### Phase 13: CORS Misconfiguration Testing
+**Tools**: Custom curl-based testing  
+**Techniques**:
+- CORS header analysis
+- Origin validation testing
+- Credential flag testing
+- Wildcard misconfiguration detection
+
+**Output**: `cors/cors_results.txt`
+
+---
+
+### Phase 14: Quick Bug Hunting Checks
+**Tools**: subjack, custom scripts  
+**Techniques**:
+- Subdomain takeover detection
+- Common vulnerability checks
+- Security header analysis
+- Exposed sensitive files
+
+**Output**: `quick_checks/takeover.txt`, `quick_checks/exposed_files.txt`
 
 ---
 
@@ -414,82 +346,119 @@ export HTTPS_PROXY="http://127.0.0.1:8080"
 
 ### Default Configuration
 
+The script includes optimized default settings in `recon_v5.sh` (lines 156-181):
+
 ```bash
 # Performance tuning
-MAX_PARALLEL_JOBS=10
-MAX_CONCURRENT_JOBS=5
-MAX_RETRIES=3
-TIMEOUT_SECONDS=2700
-NMAP_TIMEOUT=5400
-NUCLEI_TIMEOUT=7200
+MAX_PARALLEL_JOBS=10          # Maximum background jobs
+MAX_CONCURRENT_JOBS=5         # Concurrent tool executions
+MAX_RETRIES=3                 # Retry failed operations
+TIMEOUT_SECONDS=2700          # General timeout (45 min)
+NMAP_TIMEOUT=5400             # Nmap timeout (90 min)
+NUCLEI_TIMEOUT=7200           # Nuclei timeout (2 hours)
 
-# Tool configurations
-NAABU_RATE=2000
-HTTPX_THREADS=100
-KATANA_CONCURRENCY=50
-NUCLEI_RATE_LIMIT=150
-NUCLEI_CONCURRENCY=25
+# Tool-specific rate limiting
+NAABU_RATE=2000               # Packets per second
+HTTPX_THREADS=100             # HTTP probe threads
+KATANA_CONCURRENCY=50         # Crawler concurrency
+NUCLEI_RATE_LIMIT=150         # Nuclei requests/second
+NUCLEI_CONCURRENCY=25         # Nuclei parallel templates
 
 # Resource thresholds
-MEMORY_THRESHOLD=2048  # MB
+MEMORY_THRESHOLD=2048         # MB - minimum available RAM
 ```
 
 ### Custom Configuration
 
-Edit the configuration section in `recon_v5.sh`:
+Edit these values in `recon_v5.sh` to suit your needs:
 
+**For Slower/Stealthier Scans:**
 ```bash
-# Performance tuning (lines 164-169)
-MAX_PARALLEL_JOBS=15        # Increase for more parallelism
-TIMEOUT_SECONDS=3600        # Adjust timeout as needed
+NAABU_RATE=500
+HTTPX_THREADS=25
+KATANA_CONCURRENCY=10
+NUCLEI_RATE_LIMIT=50
+```
 
-# Tool configurations (lines 172-176)
-NAABU_RATE=3000            # Increase port scan speed
-HTTPX_THREADS=150          # More HTTP probing threads
+**For Faster/Aggressive Scans:**
+```bash
+NAABU_RATE=5000
+HTTPX_THREADS=200
+KATANA_CONCURRENCY=100
+NUCLEI_RATE_LIMIT=300
 ```
 
 ---
 
 ## 🔐 Security Hardening
 
-Version 5.1 introduces comprehensive security improvements:
+Version 5.1 introduces comprehensive security improvements to prevent common bash vulnerabilities:
 
-### Variable Quoting
+### 1. Proper Variable Quoting
+**Prevents**: Word splitting and globbing attacks
+
 ```bash
-# Before (v5.0)
+# ❌ Before (v5.0 - vulnerable)
 for file in $dir/*; do
+    cat $file
+done
 
-# After (v5.1)
+# ✅ After (v5.1 - secure)
 for file in "$dir"/*; do
+    cat "$file"
+done
 ```
 
-### No Dangerous Constructs
-- ❌ No `eval` usage
-- ❌ No command substitution in variables without quotes
-- ❌ No unvalidated user input in commands
+### 2. No Dangerous Constructs
+**Eliminates**: Code injection vulnerabilities
 
-### Centralized Job Control
+- ❌ **No `eval` usage** - Prevents arbitrary code execution
+- ❌ **No unquoted command substitution** - Prevents injection
+- ❌ **No user input in commands** without validation
+
+### 3. Centralized Job Control
+**Prevents**: Resource exhaustion and race conditions
+
 ```bash
-# Configurable parallel execution
-wait_for_job_slot()           # Limits concurrent jobs
-register_job()                # Tracks background processes
-wait_for_all_jobs()           # Graceful job completion
+# Job management functions
+wait_for_job_slot()      # Enforces MAX_CONCURRENT_JOBS limit
+register_job()           # Tracks background processes
+wait_for_all_jobs()      # Graceful job completion with timeout
 ```
 
-### Rate Limiting
-```bash
-# Exponential backoff for API calls
-rate_limit_sleep()
-  Base delay: 1 second
-  Max delay: 60 seconds
-  Multiplier: 2x per retry
-```
+### 4. Input Validation
+**Prevents**: Path traversal and injection attacks
 
-### Input Sanitization
 ```bash
-# Domain validation
+# Domain validation regex
 validate_domain() {
-    [[ ! "$domain" =~ ^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$ ]]
+    local domain="$1"
+    if [[ ! "$domain" =~ ^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$ ]]; then
+        return 1
+    fi
+    return 0
+}
+```
+
+### 5. Rate Limiting with Exponential Backoff
+**Prevents**: API throttling and bans
+
+```bash
+rate_limit_sleep() {
+    # Base delay: 1 second
+    # Max delay: 60 seconds
+    # Multiplier: 2x per retry
+}
+```
+
+### 6. Secure Cleanup
+**Prevents**: Leftover temporary files and sensitive data exposure
+
+```bash
+cleanup_trap() {
+    # Removes all temporary files on exit
+    # Cleans up orphaned processes
+    # Logs cleanup actions
 }
 ```
 
@@ -497,316 +466,673 @@ validate_domain() {
 
 ## 💾 Resume Capability
 
-The script automatically saves checkpoints after each phase:
+The script automatically saves checkpoints after each phase, enabling seamless recovery from interruptions.
 
 ### How It Works
 
-1. **Checkpoint Creation**: After each phase completes
-   ```bash
-   save_checkpoint "$output_dir" "$phase" "$domain" "COMPLETE"
-   ```
+1. **Automatic Checkpoint Creation**
+   - After each phase completes successfully
+   - Stores: Phase number, domain, timestamp, status
+   - Location: `<output_dir>/.recon_state/checkpoint.txt`
 
-2. **Resume Detection**: On script startup, incomplete scans are detected
+2. **Resume Detection on Startup**
    ```bash
    $ ./recon_v5.sh
-   [!] Found 1 incomplete scan(s):
-     1) recon_v5_20250205_143022 - Domain: example.com, Phase: 7, Status: RUNNING
-   Resume a scan? (Enter number or 'n' to start new):
+   
+   [!] Found incomplete scan(s):
+     1) recon_v5_20250205_143022
+        Domain: example.com
+        Phase: 7 (Vulnerability Pattern Matching)
+        Status: RUNNING
+        Last Update: 2025-02-05 14:45:32
+   
+   Resume a scan? (Enter number or 'n' to start new): 1
    ```
 
-3. **Seamless Recovery**: Resumes from the last completed phase
-   ```bash
-   [*] Resuming from Phase 7 (Status: RUNNING)
-   ```
+3. **Seamless Continuation**
+   - Loads previous configuration (wordlists, resolvers, scan type)
+   - Skips completed phases
+   - Resumes from last incomplete phase
+   - Preserves all previous results
 
-### Resume State Location
+### Resume State Files
+
 ```
 <output_dir>/.recon_state/
-  └── checkpoint.txt    # Phase tracking
-  └── progress.log      # Detailed progress
+├── checkpoint.txt    # Current phase and status
+└── progress.log      # Detailed phase history
+```
+
+**Checkpoint Format:**
+```
+PHASE=7
+DOMAIN=example.com
+TIMESTAMP=1738767932
+STATUS=RUNNING
+LAST_UPDATE=2025-02-05 14:45:32
+```
+
+### Manual Resume Management
+
+```bash
+# View checkpoint status
+cat recon_v5_*/. recon_state/checkpoint.txt
+
+# Force restart (ignore checkpoint)
+rm -rf recon_v5_*/.recon_state/
+./recon_v5.sh example.com
+
+# Resume specific scan
+# Enter scan number when prompted
 ```
 
 ---
 
 ## 📂 Output Structure
 
-Each scan creates a timestamped directory:
+Each scan creates a timestamped directory with organized results:
 
 ```
 recon_v5_YYYYMMDD_HHMMSS/
 ├── <domain>/
 │   ├── subdomains/
-│   │   ├── all_subdomains.txt
-│   │   ├── passive_subs.txt
-│   │   ├── shuffledns.txt
-│   │   └── permutations_resolved.txt
-│   ├── dns/
-│   │   ├── live_domains.txt
-│   │   └── dns_records.json
+│   │   ├── all_subdomains.txt          # Final resolved subdomains
+│   │   ├── subfinder.txt               # Subfinder results
+│   │   ├── assetfinder.txt             # Assetfinder results
+│   │   ├── amass_passive.txt           # Amass passive results
+│   │   ├── puredns.txt                 # DNS bruteforce results
+│   │   ├── dnsgen.txt                  # Permutations
+│   │   └── dnsgen_resolved.txt         # Resolved permutations
+│   │
 │   ├── ports/
-│   │   ├── open_ports.txt
-│   │   └── nmap_detailed.{xml,nmap,gnmap}
+│   │   ├── open_ports.txt              # All open ports
+│   │   ├── naabu_results.txt           # Fast scan results
+│   │   ├── nmap_detailed.xml           # Nmap XML output
+│   │   ├── nmap_detailed.nmap          # Nmap normal output
+│   │   └── nmap_detailed.gnmap         # Nmap grepable output
+│   │
 │   ├── http/
-│   │   ├── live_urls.txt
-│   │   └── httpx.json
+│   │   ├── live_urls.txt               # All HTTP/HTTPS URLs
+│   │   ├── httpx_results.txt           # Detailed HTTP info
+│   │   └── httpx.json                  # JSON output
+│   │
 │   ├── crawling/
-│   │   ├── unique_urls.txt
-│   │   ├── urls_with_params.txt
-│   │   └── js_files.txt
-│   ├── content_discovery/
-│   │   └── discovered_paths.txt
+│   │   ├── all_urls.txt                # All discovered URLs
+│   │   ├── gau_results.txt             # GAU output
+│   │   ├── katana_results.txt          # Katana crawl results
+│   │   ├── urls_params.txt             # URLs with parameters
+│   │   └── unique_urls.txt             # Deduplicated URLs
+│   │
+│   ├── javascript/
+│   │   ├── js_files/                   # Downloaded JS files
+│   │   │   ├── success/                # Successfully downloaded
+│   │   │   └── failed/                 # Failed downloads
+│   │   ├── js_urls.txt                 # JavaScript URLs
+│   │   ├── secrets.txt                 # Found secrets/keys
+│   │   └── endpoints.txt               # Extracted endpoints
+│   │
 │   ├── vulnerabilities/
-│   │   ├── nuclei.json
-│   │   └── nuclei_report.md
-│   ├── advanced_dns/
-│   │   ├── zone_transfer.txt
-│   │   └── mail_servers.txt
+│   │   ├── nuclei_results.txt          # Nuclei findings (text)
+│   │   └── nuclei.json                 # Nuclei findings (JSON)
+│   │
+│   ├── patterns/
+│   │   ├── xss.txt                     # XSS candidates
+│   │   ├── sqli.txt                    # SQLi candidates
+│   │   ├── ssrf.txt                    # SSRF candidates
+│   │   ├── redirect.txt                # Open redirect candidates
+│   │   └── lfi.txt                     # LFI candidates
+│   │
+│   ├── dns/
+│   │   ├── dns_records.txt             # All DNS records
+│   │   ├── whois.txt                   # WHOIS information
+│   │   ├── mail_servers.txt            # MX records
+│   │   ├── name_servers.txt            # NS records
+│   │   └── zone_transfer.txt           # Zone transfer attempts
+│   │
 │   ├── screenshots/
-│   │   └── *.png
+│   │   └── *.png                       # Web screenshots
+│   │
 │   ├── technology/
-│   │   └── technologies.txt
+│   │   ├── tech_stack.txt              # Detected technologies
+│   │   └── waf_detection.txt           # WAF findings
+│   │
 │   ├── parameters/
-│   │   └── all_parameters.txt
+│   │   └── discovered_params.txt       # Arjun results
+│   │
 │   ├── fuzzing/
-│   │   ├── xss_results.txt
-│   │   ├── sqli_candidates.txt
-│   │   └── crlf_results.txt
+│   │   └── parameter_fuzzing.txt       # Fuzzing results
+│   │
 │   ├── cors/
-│   │   └── cors_results.txt
+│   │   └── cors_results.txt            # CORS testing results
+│   │
 │   ├── quick_checks/
-│   │   ├── subdomain_takeover.txt
-│   │   ├── s3_buckets.txt
-│   │   └── git_exposed.txt
-│   ├── REPORT.md
-│   └── .recon_state/
-└── recon.log
+│   │   ├── takeover.txt                # Subdomain takeover
+│   │   └── exposed_files.txt           # Sensitive files
+│   │
+│   ├── REPORT.md                       # Final markdown report
+│   ├── errors.log                      # Error messages
+│   └── .recon_state/                   # Resume checkpoint
+│       ├── checkpoint.txt
+│       └── progress.log
+│
+└── recon.log                           # Global execution log
 ```
 
 ---
 
 ## 🛠️ Tool Requirements
 
-### Core Tools (Required)
+The pipeline requires **40+ tools** that are automatically installed by `install_v5.sh`.
 
-| Tool | Purpose | Installation |
-|------|---------|--------------|
-| subfinder | Subdomain enumeration | `go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest` |
-| amass | Subdomain enumeration | `go install -v github.com/owasp-amass/amass/v4/...@master` |
-| dnsx | DNS resolution | `go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest` |
-| httpx | HTTP probing | `go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest` |
-| naabu | Port scanning | `go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest` |
+### Complete Tool List
+
+#### System & Language Tools (6)
+1. **python3** - Python 3 runtime
+2. **pip3** - Python package manager
+3. **go** - Go programming language (v1.19+)
+4. **git** - Version control
+5. **curl** - Data transfer tool
+6. **wget** - Network downloader
+
+#### Proxy & Anonymity (2)
+7. **proxychains** - Proxy chains
+8. **tor** - The Onion Router
+
+#### Web Browser (1)
+9. **chromium** - Headless browser (for screenshots)
+
+#### Subdomain Enumeration (6)
+10. **subfinder** - Passive subdomain discovery
+11. **assetfinder** - Asset discovery
+12. **amass** - OWASP DNS enumeration
+13. **puredns** - DNS bruteforcing
+14. **dnsx** - DNS toolkit
+15. **dnsgen** - Subdomain permutation
+
+#### Port Scanning (2)
+16. **naabu** - Fast port scanner
+17. **nmap** - Network mapper
+
+#### HTTP Tools (3)
+18. **httpx** - HTTP toolkit
+19. **gowitness** - Screenshot utility
+20. **katana** - Web crawler
+
+#### URL Processing (5)
+21. **gau** - URL collection from archives
+22. **uro** - URL deduplication
+23. **gf** - Pattern matching
+24. **qsreplace** - Query parameter replacer
+25. **url-extension** - URL extension tool (custom)
+
+#### Vulnerability Scanning (2)
+26. **nuclei** - Template-based vulnerability scanner
+27. **arjun** - Parameter discovery
+
+#### DNS & WHOIS (2)
+28. **dnsrecon** - DNS reconnaissance
+29. **whois** - WHOIS lookup
+
+#### Security Testing (2)
+30. **subjack** - Subdomain takeover detection
+31. **wafw00f** - WAF detection
+
+#### Cloud Enumeration (1)
+32. **cloud_enum** - Cloud asset discovery (AWS, Azure, GCP)
+
+#### JavaScript Analysis (2)
+33. **jsscan** - JavaScript secret scanner (custom)
+34. **down** - Download utility (custom)
+
+#### JSON Processing (1)
+35. **jq** - JSON processor
+
+#### Standard Linux Utilities (Pre-installed)
+36. awk, sed, grep, find, sort, uniq, cat, tr, xargs, wc
+
+### Installation Methods
+
+| Method | Tools Count |
+|--------|-------------|
+| **APT** (Debian/Ubuntu) | python3, git, curl, wget, jq, nmap, dnsrecon, whois, tor, proxychains4, chromium |
+| **Go Install** | subfinder, assetfinder, amass, puredns, dnsx, naabu, httpx, nuclei, gowitness, gau, katana, gf, qsreplace, subjack |
+| **pip3** | dnsgen, uro, arjun, wafw00f |
+| **Git Clone** | cloud_enum, jsscan, down, url-extension |
+
+### Resource Files (Auto-Downloaded)
+
+- **Wordlist**: `subdomains-top1million-5000.txt` (5000 common subdomains)
+- **Resolvers**: `resolvers.txt` (trusted DNS resolvers)
+- **Fingerprint**: `fingerprint.json` (technology fingerprints)
+- **Nuclei Templates**: Latest vulnerability templates
+- **GF Patterns**: Bug bounty pattern files
 
 ### Optional Tools
 
-| Tool | Purpose | Impact if Missing |
-|------|---------|-------------------|
-| nuclei | Vulnerability scanning | Phase 7 will be skipped (can be disabled) |
-| nmap | Detailed port scanning | Less detailed port information |
-| gowitness | Screenshots | No visual captures |
-
-**Total Tools**: 50+
-
-See [Installation](#-installation) section for complete list.
+- **grepcidr** - CIDR matching (for CDN detection)
+- **sudo** - Privilege escalation (for some installations)
+- **libpcap-dev** - Required for naabu compilation
 
 ---
 
 ## ⚡ Performance Tuning
 
-### For Fast Scans (Fewer Resources)
+### Resource Recommendations
 
+| Scan Type | RAM | CPU | Disk | Duration |
+|-----------|-----|-----|------|----------|
+| **Quick** | 4 GB | 2 cores | 10 GB | 20-40 min |
+| **Full** | 8 GB | 4 cores | 30 GB | 2-4 hours |
+| **Full + Nuclei** | 16 GB | 8 cores | 50 GB | 4-8 hours |
+| **Multiple Targets** | 32 GB | 16 cores | 100 GB | Varies |
+
+### Configuration Presets
+
+#### Fast & Aggressive (High Resources)
 ```bash
-# Edit recon_v5.sh configuration:
-MAX_CONCURRENT_JOBS=3
-NAABU_RATE=1000
-HTTPX_THREADS=50
-KATANA_CONCURRENCY=25
-```
-
-### For Maximum Speed (More Resources)
-
-```bash
-# Edit recon_v5.sh configuration:
+# Edit lines 164-176 in recon_v5.sh
 MAX_CONCURRENT_JOBS=10
 NAABU_RATE=5000
 HTTPX_THREADS=200
 KATANA_CONCURRENCY=100
+NUCLEI_RATE_LIMIT=300
+NUCLEI_CONCURRENCY=50
 ```
 
-### Resource Recommendations
+#### Balanced (Recommended)
+```bash
+MAX_CONCURRENT_JOBS=5
+NAABU_RATE=2000
+HTTPX_THREADS=100
+KATANA_CONCURRENCY=50
+NUCLEI_RATE_LIMIT=150
+NUCLEI_CONCURRENCY=25
+```
 
-| Scan Type | RAM | CPU Cores | Disk Space |
-|-----------|-----|-----------|------------|
-| Quick | 4 GB | 2+ | 10 GB |
-| Full | 8 GB | 4+ | 50 GB |
-| Multiple Targets | 16 GB | 8+ | 100 GB |
+#### Slow & Stealthy (Low Resources)
+```bash
+MAX_CONCURRENT_JOBS=3
+NAABU_RATE=500
+HTTPX_THREADS=25
+KATANA_CONCURRENCY=10
+NUCLEI_RATE_LIMIT=50
+NUCLEI_CONCURRENCY=10
+```
+
+### Performance Tips
+
+1. **Disable Nuclei for faster scans** (saves 1-2 hours)
+2. **Use Quick scan mode** for initial reconnaissance
+3. **Filter CDN/Cloud IPs** to focus on real infrastructure
+4. **Exclude out-of-scope domains** early to save time
+5. **Increase timeouts** if you have slow internet connection
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Common Issues & Solutions
 
-<details>
-<summary><b>Tool Not Found</b></summary>
+#### Issue: Tool Not Found
 
 ```bash
-# Verify tool installation
-which subfinder
-which httpx
+# Symptom
+[✗] subfinder (required)
+[!] Missing required tools
 
-# Check Go PATH
+# Solution 1: Re-run installation
+sudo bash install_v5.sh
+
+# Solution 2: Check Go PATH
 echo $GOPATH
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:$HOME/go/bin
 
-# Reinstall specific tool
+# Solution 3: Manually install missing tool
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 ```
-</details>
 
-<details>
-<summary><b>Permission Denied</b></summary>
+#### Issue: Permission Denied
 
 ```bash
-# Make script executable
+# Symptom
+bash: ./recon_v5.sh: Permission denied
+
+# Solution
 chmod +x recon_v5.sh
-
-# For tools requiring sudo (install_v5.sh)
-sudo bash install_v5.sh
+./recon_v5.sh
 ```
-</details>
 
-<details>
-<summary><b>Out of Memory</b></summary>
+#### Issue: Out of Memory
 
 ```bash
-# Reduce concurrent jobs
-MAX_CONCURRENT_JOBS=3
+# Symptom
+Killed
+[FATAL] Script exited unexpectedly with code 137
 
-# Skip resource-intensive phases
-# Disable Nuclei when prompted
+# Solution 1: Reduce concurrency
+# Edit recon_v5.sh:
+MAX_CONCURRENT_JOBS=2
+HTTPX_THREADS=25
 
-# Monitor memory usage
+# Solution 2: Disable Nuclei (most memory-intensive)
+# Select "n" when prompted for Nuclei scanning
+
+# Solution 3: Monitor memory
 watch -n 1 free -h
 ```
-</details>
 
-<details>
-<summary><b>Script Hangs or Times Out</b></summary>
+#### Issue: Nuclei Template Update Fails
 
 ```bash
-# Increase timeouts in configuration
-TIMEOUT_SECONDS=5400
-NMAP_TIMEOUT=7200
+# Symptom
+[!] Failed to update Nuclei templates
 
-# Run with verbose logging to identify issue
+# Solution
+nuclei -update-templates
+# Or manually:
+cd ~/nuclei-templates && git pull
+```
+
+#### Issue: DNS Resolution Fails
+
+```bash
+# Symptom
+[!] No subdomains resolved
+
+# Solution: Use different resolvers
+# Download fresh resolvers:
+wget https://raw.githubusercontent.com/trickest/resolvers/main/resolvers.txt
+# Specify when prompted for custom resolvers
+```
+
+#### Issue: Script Hangs
+
+```bash
+# Symptom
+Script stops responding (no output for 10+ minutes)
+
+# Solution 1: Enable verbose mode
 ./recon_v5.sh example.com --verbose
 
-# Check log file
-tail -f recon_v5_*/recon.log
-```
-</details>
+# Solution 2: Check running processes
+ps aux | grep -E 'nmap|nuclei|katana|httpx'
 
-<details>
-<summary><b>Resume Not Working</b></summary>
+# Solution 3: Increase timeouts
+# Edit recon_v5.sh:
+TIMEOUT_SECONDS=5400
+NMAP_TIMEOUT=7200
+NUCLEI_TIMEOUT=10800
+```
+
+#### Issue: Resume Not Working
 
 ```bash
-# Check checkpoint file exists
+# Symptom
+[!] No incomplete scans found
+
+# Solution 1: Check for .recon_state directory
 ls -la recon_v5_*/.recon_state/
 
-# Manually inspect checkpoint
+# Solution 2: Verify checkpoint file
 cat recon_v5_*/.recon_state/checkpoint.txt
 
-# If corrupted, remove and restart
+# Solution 3: If corrupted, remove and restart
 rm -rf recon_v5_*/.recon_state/
+./recon_v5.sh example.com
 ```
-</details>
+
+### Debug Mode
+
+For advanced troubleshooting, enable bash debug mode:
+
+```bash
+bash -x recon_v5.sh example.com --verbose 2>&1 | tee debug.log
+```
+
+This shows every command executed and helps identify where the script fails.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+Contributions are highly encouraged! Here's how you can help improve the Bug Bounty Recon Pipeline:
+
+### Ways to Contribute
+
+- 🐛 **Report bugs** - Found an issue? Open a detailed bug report
+- ✨ **Suggest features** - Have an idea? Share it in discussions
+- 📝 **Improve documentation** - Fix typos, add examples, clarify instructions
+- 🔧 **Submit code** - Fix bugs, add tools, optimize performance
+- 🧪 **Test & review** - Try the script on different systems and provide feedback
 
 ### Reporting Issues
 
-1. **Search** existing issues first
-2. **Provide details**: OS, tool versions, error messages
-3. **Include logs**: Relevant portions of `recon.log`
-4. **Minimal reproduction**: Steps to reproduce the issue
+When reporting bugs, please include:
+
+1. **System Information**
+   ```bash
+   uname -a
+   bash --version
+   cat /etc/os-release
+   ```
+
+2. **Tool Versions**
+   ```bash
+   subfinder -version
+   nuclei -version
+   go version
+   ```
+
+3. **Error Output**
+   ```bash
+   # Relevant sections from:
+   recon_v5_*/recon.log
+   recon_v5_*/errors.log
+   ```
+
+4. **Steps to Reproduce**
+   - Exact commands run
+   - Target domain (if not sensitive)
+   - Configuration changes made
 
 ### Submitting Pull Requests
 
 1. **Fork** the repository
-2. **Create branch**: `git checkout -b feature/amazing-feature`
-3. **Follow style**: Maintain bash script conventions
-4. **Test thoroughly**: Ensure no regressions
-5. **Document changes**: Update README if needed
-6. **Commit**: `git commit -m 'Add amazing feature'`
-7. **Push**: `git push origin feature/amazing-feature`
-8. **Open PR**: Provide clear description of changes
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-improvement
+   ```
+
+3. **Make your changes**
+   - Follow existing code style
+   - Add comments for complex logic
+   - Test thoroughly on Ubuntu/Debian
+
+4. **Test the script**
+   ```bash
+   # Run on test domain
+   ./recon_v5.sh example.com
+   
+   # Verify no errors
+   grep -i "error\|fatal" recon_v5_*/recon.log
+   ```
+
+5. **Commit with clear message**
+   ```bash
+   git commit -m "Add feature: Integrate new tool X for Phase Y"
+   ```
+
+6. **Push to your fork**
+   ```bash
+   git push origin feature/amazing-improvement
+   ```
+
+7. **Open Pull Request**
+   - Describe what changed and why
+   - Reference related issues
+   - Include testing results
 
 ### Development Guidelines
 
-- **Security First**: No `eval`, proper quoting, input validation
-- **Error Handling**: Graceful failures, informative messages
-- **Performance**: Optimize for speed without sacrificing reliability
-- **Compatibility**: Test on Ubuntu 20.04+, Debian 10+, Kali Linux
+#### Code Style
+
+- **Bash best practices**: Proper quoting, error handling, functions
+- **Security first**: No `eval`, validate all inputs, secure temp files
+- **Readability**: Clear variable names, helpful comments
+- **Modularity**: Keep functions focused and reusable
+
+#### Testing Checklist
+
+- [ ] Script runs without errors on clean system
+- [ ] All phases complete successfully
+- [ ] Resume functionality works
+- [ ] Verbose mode provides useful output
+- [ ] Error handling works correctly
+- [ ] No security vulnerabilities introduced
+
+#### Adding New Tools
+
+When integrating new reconnaissance tools:
+
+1. **Update `install_v5.sh`** with installation instructions
+2. **Add to `check_tools()` function** in `recon_v5.sh`
+3. **Create or modify phase function** to use the new tool
+4. **Update output structure** in this README
+5. **Add example output** to help users understand results
+6. **Test integration** with existing pipeline
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
 
 ### MIT License Summary
 
+**Permissions:**
 - ✅ Commercial use
 - ✅ Modification
 - ✅ Distribution
 - ✅ Private use
-- ⚠️ Liability limitation
-- ⚠️ Warranty disclaimer
+
+**Conditions:**
+- ℹ️ License and copyright notice required
+
+**Limitations:**
+- ⚠️ Liability
+- ⚠️ Warranty
+
+See the [LICENSE](LICENSE) file for the full legal text.
 
 ---
 
-## 👤 Author
+## 🙏 Credits & Acknowledgments
 
-**Shakibul Bokthiar (Shakibul_Cybersec)**
+### Original Author
 
-- 🌐 Portfolio: [Coming Soon]
-- 💼 LinkedIn: [Your LinkedIn]
-- 🐦 Twitter: [@YourTwitter]
-- 📧 Email: your.email@example.com
-- 🐛 Bug Bounty Profile: [Your HackerOne/Bugcrowd]
+**Shakibul Bokthiar** (Shakibul_Cybersec)
+- Primary developer and maintainer
+- Bug bounty hunter and security researcher
 
----
+### AI Assistance & Documentation
 
-## 🙏 Acknowledgments
+This project's documentation, testing, and validation was enhanced with assistance from:
 
-- **Tool Authors**: Thanks to all the amazing tool developers in the security community
-- **ProjectDiscovery Team**: For exceptional reconnaissance tools
-- **OWASP**: For security testing methodologies
-- **Bug Bounty Community**: For continuous inspiration and knowledge sharing
+- **Claude (Anthropic)** - README accuracy verification, tool list validation, code review, security hardening suggestions
+- **ChatGPT (OpenAI)** - Initial documentation drafting, examples, troubleshooting guides
+- **DeepSeek** - Code optimization suggestions, performance tuning recommendations
+
+*Note: AI tools were used for documentation and analysis only. All reconnaissance code and security logic was written and reviewed by human security researchers.*
+
+### Tool Authors & Projects
+
+Massive thanks to the amazing security tool developers:
+
+#### ProjectDiscovery Team
+- **subfinder**, **httpx**, **nuclei**, **naabu**, **dnsx**, **katana** - Exceptional reconnaissance tools that power this pipeline
+
+#### OWASP
+- **amass** - Comprehensive DNS enumeration framework
+
+#### Independent Developers
+- **tomnomnom** - assetfinder, gf, qsreplace, anew, unfurl
+- **d3mondev** - puredns
+- **lc** - gau, subjs
+- **sensepost** - gowitness
+- **haccer** - subjack
+- **EnableSecurity** - wafw00f
+- **s0md3v** - Arjun
+- **initstring** - cloud_enum
+
+#### Essential Tools
+- **nmap** (Gordon Lyon / Fyodor) - The legendary network scanner
+- **dnsgen** (ProjectAnte) - Subdomain permutation
+- **jq** (Stephen Dolan) - JSON processing
+- **chromium** (Google) - Headless browser engine
+
+### Community Resources
+
+- **SecLists** (Daniel Miessler) - Wordlists and patterns
+- **Trickest** - DNS resolver lists
+- **Bug Bounty Community** - Testing methodologies and techniques
+- **InfoSec Twitter** - Continuous inspiration and knowledge sharing
+
+### Special Thanks
+
+- All bug bounty hunters who test and improve this tool
+- Security researchers who report issues and suggest improvements
+- Open-source community for making these amazing tools freely available
 
 ---
 
 ## ⚠️ Disclaimer
 
-**For Educational and Authorized Testing Only**
+### Legal and Ethical Use
 
-This tool is intended for:
-- ✅ Authorized penetration testing
-- ✅ Bug bounty programs with permission
-- ✅ Security research in controlled environments
-- ✅ Educational purposes
+**This tool is intended ONLY for:**
 
-**DO NOT:**
-- ❌ Use against systems without explicit permission
-- ❌ Perform unauthorized access attempts
-- ❌ Violate any laws or regulations
-- ❌ Use for malicious purposes
+✅ **Authorized penetration testing** with written permission  
+✅ **Bug bounty programs** with explicit scope definitions  
+✅ **Security research** in controlled, legal environments  
+✅ **Educational purposes** in lab/testing setups  
+✅ **Personal infrastructure** that you own or have authorization to test  
 
-**The author assumes no liability for misuse of this tool. Users are responsible for complying with all applicable laws and obtaining proper authorization before testing.**
+### Prohibited Uses
+
+**DO NOT use this tool for:**
+
+❌ **Unauthorized access** to systems you don't own or have permission to test  
+❌ **Malicious activities** including DoS, data theft, or system compromise  
+❌ **Violating laws** - including CFAA (Computer Fraud and Abuse Act) and similar legislation  
+❌ **Violating terms of service** of websites or platforms  
+❌ **Testing without consent** - Always obtain written authorization first  
+
+### Legal Responsibilities
+
+- **Users are solely responsible** for complying with all applicable laws and regulations
+- **Always obtain explicit written permission** before testing any system
+- **Respect bug bounty program rules** including scope, disclosure timelines, and restrictions
+- **The author assumes NO LIABILITY** for misuse, damages, or legal consequences
+- **This tool generates significant traffic** - ensure you have permission for the load
+
+### Security Warning
+
+- This tool performs **active reconnaissance** and **vulnerability scanning**
+- Operations **will be logged** by target systems and may trigger alerts
+- Use **responsibly** and **ethically** at all times
+- Consider using **VPN/proxy** for privacy (where legally allowed)
+
+### Bug Bounty Guidelines
+
+When using this tool for bug bounties:
+
+1. **Read the program rules** completely before starting
+2. **Respect the scope** - Don't test out-of-scope domains
+3. **Be mindful of rate limits** - Don't DoS the targets
+4. **Follow responsible disclosure** - Report findings properly
+5. **Don't weaponize** - Never exploit vulnerabilities beyond PoC
+
+**By using this tool, you agree to use it legally, ethically, and responsibly. The author and contributors are not responsible for any misuse or damage caused by this tool.**
 
 ---
 
@@ -815,25 +1141,51 @@ This tool is intended for:
 ![GitHub stars](https://img.shields.io/github/stars/Shakibul-CyberSec/Bug-bounty-recon-pipeline?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/Shakibul-CyberSec/Bug-bounty-recon-pipeline?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/Shakibul-CyberSec/Bug-bounty-recon-pipeline?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Shakibul-CyberSec/Bug-bounty-recon-pipeline)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Shakibul-CyberSec/Bug-bounty-recon-pipeline)
 
 ---
 
 ## 🗺️ Roadmap
 
+Future enhancements planned for the pipeline:
+
+### v5.2 (Next Release)
 - [ ] Web-based dashboard for results visualization
-- [ ] Docker containerization for easy deployment
 - [ ] Integration with notification services (Slack, Discord, Telegram)
+- [ ] Enhanced report generation with charts and graphs
+- [ ] Cloud storage integration (S3, Google Drive) for results
+
+### v6.0 (Major Update)
+- [ ] Docker containerization for easy deployment
+- [ ] Kubernetes deployment for distributed scanning
 - [ ] Custom plugin system for additional tools
+- [ ] API for programmatic access
+
+### Future Considerations
 - [ ] Machine learning for false positive reduction
-- [ ] CI/CD integration examples
+- [ ] Automatic vulnerability validation
+- [ ] Integration with SIEM systems
+- [ ] CI/CD pipeline templates
 - [ ] Cloud deployment templates (AWS, GCP, Azure)
+- [ ] Multi-threading optimization
+- [ ] Real-time progress dashboard
+
+### Community Requests
+- Suggest features in [GitHub Discussions](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/discussions)
 
 ---
 
 <div align="center">
 
-### ⭐ If this project helps you, consider giving it a star!
+### ⭐ If this project helps you find bugs, consider giving it a star!
 
-Made with ❤️ by [Shakibul_Cybersec](https://github.com/Shakibul-CyberSec)
+**Made with ❤️ by Security Researchers, for Security Researchers**
+
+[Report Bug](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues) · [Request Feature](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/issues) · [Contribute](https://github.com/Shakibul-CyberSec/Bug-bounty-recon-pipeline/pulls)
+
+---
+
+**🔒 Hack Legally. Research Ethically. Disclose Responsibly.**
 
 </div>
