@@ -6,9 +6,8 @@ Currently supported versions with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :white_check_mark: |
-| < 5.0   | :x:                |
+| 1.0.x   | :white_check_mark: |
+| < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -24,7 +23,7 @@ Instead, please report security vulnerabilities via:
    - Fill in the details
 
 2. **Email** (Alternative)
-   - Contact: [Create a private security issue]
+   - Contact: contact@shakibul.com
    - Include "SECURITY" in the subject line
    - Provide detailed information about the vulnerability
 
@@ -66,8 +65,7 @@ When reporting a vulnerability, please include:
 4. **Limit permissions** to what's necessary
 5. **Monitor logs** for suspicious activity
 6. **Use Tor mode** for sensitive operations
-7. **Verify downloads** using checksums
-8. **Don't scan** unauthorized targets
+7. **Don't scan** unauthorized targets
 
 ### For Developers
 
@@ -98,7 +96,7 @@ When reporting a vulnerability, please include:
 - Clean up temporary files after scans
 
 ### 4. Third-Party Tools
-- We integrate 50+ external security tools
+- We integrate 34 external security tools
 - Each tool has its own security considerations
 - Keep tools updated to latest versions
 
@@ -120,38 +118,27 @@ When reporting a vulnerability, please include:
 - No use of `eval`
 - Proper variable quoting
 - Secure temp file handling
+- Manual parsing instead of `source` command
 
 ✅ **Resource Management**
-- Timeout controls
-- Memory limits
-- Job concurrency limits
+- Timeout controls (45min general, 90min nmap, 120min nuclei)
+- Job concurrency limits (max 5 concurrent)
+- Memory threshold monitoring (4GB)
 
 ✅ **Error Handling**
 - Graceful failure handling
-- Cleanup on exit
-- Detailed logging
+- Cleanup on exit via trap
+- Detailed logging (recon.log, errors.log)
 
 ✅ **Rate Limiting**
 - Exponential backoff
 - Configurable delays
-- API quota management
+- Tool-specific rate limits (naabu: 2000 pkt/s, nuclei: 150 req/s)
 
-### Planned Improvements
-
-🔄 **Enhanced Validation**
-- Stricter input filtering
-- Additional security checks
-- Better error messages
-
-🔄 **Audit Logging**
-- Detailed security event logs
-- Tampering detection
-- Forensic capabilities
-
-🔄 **Sandboxing**
-- Container support
-- Isolated execution
-- Resource isolation
+✅ **Anonymization**
+- Optional Tor integration (SOCKS5 proxy on port 9050)
+- Proxy support via proxychains
+- Rate limiting to avoid detection
 
 ## Compliance
 
@@ -189,16 +176,17 @@ We currently don't have a formal bug bounty program, but we appreciate security 
 Security researchers who help improve this project will be:
 - Acknowledged in the CHANGELOG
 - Credited in security advisories
-- Listed in the Hall of Fame (if desired)
 
 ### Scope
 
 **In Scope:**
-- Security vulnerabilities in recon_v5.sh
-- Security issues in install_v5.sh
+- Security vulnerabilities in recon.sh
+- Security issues in install.sh
 - Configuration weaknesses
 - Dangerous default settings
 - Input validation bypasses
+- Command injection vulnerabilities
+- Path traversal issues
 
 **Out of Scope:**
 - Issues in third-party tools
@@ -216,7 +204,6 @@ Stay informed about security updates:
 1. **Watch** the repository on GitHub
 2. **Enable notifications** for security advisories
 3. **Check CHANGELOG.md** regularly
-4. **Follow** [@Shakibul_Cybersec](https://twitter.com/Shakibul_Cybersec) on Twitter
 
 ### Update Procedure
 
@@ -231,7 +218,7 @@ git pull origin main
 git log -p
 
 # Update tools
-./install_v5.sh
+sudo ./install.sh
 ```
 
 ## Contact
@@ -239,7 +226,7 @@ git log -p
 For security-related inquiries:
 - GitHub Security Advisories (Preferred)
 - GitHub Issues (Non-sensitive matters)
-- Twitter: [@Shakibul_Cybersec](https://twitter.com/Shakibul_Cybersec)
+- Email: contact@shakibul.com
 
 ---
 
