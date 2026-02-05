@@ -434,7 +434,7 @@ Thanks to the bug bounty hunters, penetration testers, and security researchers 
 **Shakibul**  
 Security Researcher & Developer
 
-- Twitter: [@Shakibul_Cybersec](https://twitter.com/Shakibul_Cybersec)
+- Website: [Shakibul-Portfolio](https://shakibul.com)
 - GitHub: [@Shakibul-CyberSec](https://github.com/Shakibul-CyberSec)
 
 ---
