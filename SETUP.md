@@ -47,11 +47,11 @@ The installer will:
 2. Install Go programming language
 3. Install Python3 and pip3
 4. Install 50+ security tools
-5. Set up default wordlists and resolvers
+5. Set up default wordlists,resolvers and fingerprints.json
 6. Configure Tor proxy
 7. Download Nuclei templates
 
-**Note**: Installation may take 20-30 minutes depending on your internet speed.
+**Note**: Installation may take 10-15 minutes depending on your internet speed.
 
 ### 4. Verify Installation
 ```bash
@@ -60,6 +60,7 @@ subfinder -version
 nuclei -version
 httpx -version
 naabu -version
+.....
 ```
 
 ## Post-Installation Configuration
