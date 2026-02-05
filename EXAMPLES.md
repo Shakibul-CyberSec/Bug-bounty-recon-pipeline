@@ -118,7 +118,7 @@ EOF
 ./recon.sh webapp.internal.company.com
 
 # Focus on vulnerabilities directory
-cat recon_v5_*/webapp.internal.company.com/vulnerabilities/*
+cat recon_*/webapp.internal.company.com/vulnerabilities/*
 ```
 
 #### Custom Post-Processing
