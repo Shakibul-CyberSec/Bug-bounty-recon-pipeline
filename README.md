@@ -115,7 +115,7 @@ During execution, the pipeline will prompt for:
 | **3** | **HTTP Probing** | httpx | Live host identification (HTTP/HTTPS) |
 | **4** | **URL Collection** | gau, katana, url-extension | Archive URLs, crawled URLs, filtered by extension |
 | **5** | **JavaScript Analysis** | down, jsscan, httpx | JS files, secrets, endpoints, source maps |
-| **5.5** | **API Discovery** | gf, qsreplace | API endpoints and GraphQL/Swagger detection |
+| **5.5** | **API Discovery** | httpx | API endpoints and GraphQL/Swagger detection |
 | **5.6** | **Cloud Asset Discovery** | CT logs, pattern matching | S3, Azure, GCS resources |
 | **5.7** | **WAF Detection** | wafw00f | Web Application Firewall identification |
 | **6** | **Nuclei Vulnerability Scan** | nuclei | Vulnerability findings by severity |
