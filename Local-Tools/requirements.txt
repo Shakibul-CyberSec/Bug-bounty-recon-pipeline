@@ -1,0 +1,4 @@
+PyYAML>=5.1
+tqdm>=4.0
+esprima>=4.0.1
+scikit-learn>=0.24.0
